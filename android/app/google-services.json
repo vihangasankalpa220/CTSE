@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "934256167073",
+    "firebase_url": "https://it17035118freshfruits.firebaseio.com",
+    "project_id": "it17035118freshfruits",
+    "storage_bucket": "it17035118freshfruits.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:934256167073:android:13ebc9d297339e3c9088e0",
+        "android_client_info": {
+          "package_name": "learnafruit.it17035118"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "934256167073-mbtnf5errq7hsitjikmlcg8vk460lol2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDECdVhY7S7xtRsXFksSfCFQx2udnQ7ZZg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "934256167073-mbtnf5errq7hsitjikmlcg8vk460lol2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
