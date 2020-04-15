@@ -50,16 +50,40 @@ class _SplashScreenState extends State<SplashScreen> {
               Image.asset(
                 'assets/app_logo.png',
                 width: 600.0,
-                height: 240.0,
+                height: 220.0,
                 fit: BoxFit.cover,
               ),
+              Padding(
+                padding: EdgeInsets.only(top: 40),
+              ),
+
 //              Icon(
 //
 //
 //                          Icons.person
 //
 //              ),
-            SizedBox(width: 40.0),
+           // SizedBox(width: 20.0),
+
+          Expanded(
+            flex: 10,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                LinearProgressIndicator(),
+                Padding(
+                 padding: EdgeInsets.only(top: 100),
+                ),
+
+                  Text(
+                    "Learn A Fruit is Loading.........",
+                    style: TextStyle(color: Colors.green, fontSize: 14),
+                  ),
+              ],
+            ),
+            ),
+
+
             ],
           ),
         ),
