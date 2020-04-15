@@ -46,7 +46,7 @@ class FruitDetail extends StatelessWidget {
                 ),
                 SizedBox(height: 20),
                 Text(
-                  "Ingredients",
+                  "Tags",
                   style: TextStyle(fontSize: 18, decoration: TextDecoration.underline),
                 ),
                 SizedBox(height: 16),
