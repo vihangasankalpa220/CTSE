@@ -272,6 +272,7 @@ class _FruitFormState extends State<FruitForm> {
           _saveFruit();
         },
         child: Icon(Icons.save),
+        backgroundColor: Colors.green,
         foregroundColor: Colors.white,
       ),
     );

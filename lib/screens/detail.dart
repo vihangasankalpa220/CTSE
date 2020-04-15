@@ -91,6 +91,7 @@ class FruitDetail extends StatelessWidget {
               );
             },
             child: Icon(Icons.edit),
+            backgroundColor: Colors.blue,
             foregroundColor: Colors.white,
           ),
           SizedBox(height: 20),

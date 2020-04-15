@@ -53,12 +53,15 @@ class _FruitBookState extends State<FruitBook> {
         child: ListView.separated(
           itemBuilder: (BuildContext context, int index) {
             return ListTile(
-              leading: Image.network(
+              leading: CircleAvatar(
+                radius: 25.0,
+                child: Image.network(
                 fruitNotifier.fruitList[index].image != null
                     ? fruitNotifier.fruitList[index].image
                     : 'https://www.testingxperts.com/wp-content/uploads/2019/02/placeholder-img.jpg',
                 width: 150,height: 1000,
                 fit: BoxFit.fill,
+              ),
               ),
 
               title: Text(fruitNotifier.fruitList[index].name),

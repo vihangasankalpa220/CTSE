@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 # learn_a_fruit_flutter_app
-=======
-# finalfruitapp
->>>>>>> 18b858a226cd6b16d602fddc4c53d0ad1a5db982
 
 A new Flutter project.
 
