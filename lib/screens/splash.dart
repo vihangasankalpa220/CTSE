@@ -51,7 +51,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 'assets/app_logo.png',
                 width: 600.0,
                 height: 220.0,
-                fit: BoxFit.cover,
+                fit: BoxFit.contain,
               ),
               Padding(
                 padding: EdgeInsets.only(top: 40),
