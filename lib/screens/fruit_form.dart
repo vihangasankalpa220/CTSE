@@ -235,9 +235,9 @@ class _FruitFormState extends State<FruitForm> {
                 _buildSubingredientField(),
                 ButtonTheme(
                   child: RaisedButton(
-                    child: Text('Add', style: TextStyle(color: Colors.white)),
-                    onPressed: () => _addSubingredient(subingredientController.text),
-                  ),
+                  child: Text('Add', style: TextStyle(color: Colors.white)),
+                  onPressed: () => _addSubingredient(subingredientController.text),
+                ),
                 )
               ],
             ),
@@ -275,6 +275,9 @@ class _FruitFormState extends State<FruitForm> {
         backgroundColor: Colors.green,
         foregroundColor: Colors.white,
       ),
+
+
+
     );
   }
 }

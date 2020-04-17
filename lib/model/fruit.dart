@@ -33,4 +33,6 @@ class Fruit {
       'updatedAt': updatedAt
     };
   }
+
+
 }

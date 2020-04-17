@@ -1,45 +1,44 @@
 import 'dart:io';
-import 'package:learn_a_fruit_flutter_app/model/user.dart';
-import 'package:learn_a_fruit_flutter_app/notifier/auth_notifier.dart';
+
+import 'package:learn_a_fruit_flutter_app/api/fruit_api.dart';
+import 'package:learn_a_fruit_flutter_app/model/fruit.dart';
 import 'package:learn_a_fruit_flutter_app/notifier/fruit_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:learn_a_fruit_flutter_app/providers/app_provider.dart';
-import 'package:learn_a_fruit_flutter_app/util/const.dart';
 import 'package:provider/provider.dart';
 
-import 'main_screen.dart';
-class Profile extends StatefulWidget {
+class FavouriteForm extends StatefulWidget {
   final bool isUpdating;
 
-  Profile({@required this.isUpdating});
+  FavouriteForm({@required this.isUpdating});
 
   @override
-  _ProfileState createState() => _ProfileState();
+  _FavouriteFormState createState() => _FavouriteFormState();
 }
 
-class _ProfileState extends State<Profile> {
+class _FavouriteFormState extends State<FavouriteForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  User _currentUser;
-  String displayName;
-  File _imageFile;
+  List _subingredients = [];
+  Fruit _currentFruit;
   String _imageUrl;
+  File _imageFile;
+  TextEditingController subingredientController = new TextEditingController();
 
   @override
   void initState() {
     super.initState();
     FruitNotifier fruitNotifier = Provider.of<FruitNotifier>(context, listen: false);
 
-    if (fruitNotifier.currentUser != null) {
-      _currentUser = fruitNotifier.currentUser;
+    if (fruitNotifier.currentFruit != null) {
+      _currentFruit = fruitNotifier.currentFruit;
     } else {
-      _currentUser = User();
+      _currentFruit = Fruit();
     }
 
-
-    _imageUrl = _currentUser.image;
+    _subingredients.addAll(_currentFruit.subIngredients);
+    _imageUrl = _currentFruit.image;
   }
 
   _showImage() {
@@ -74,10 +73,10 @@ class _ProfileState extends State<Profile> {
         alignment: AlignmentDirectional.bottomCenter,
         children: <Widget>[
           Image.network(
-            "https://images.unsplash.com/photo-1502164980785-f8aa41d53611?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
+            _imageUrl,
             width: MediaQuery.of(context).size.width,
-            fit: BoxFit.cover,
-            height: 250,
+            fit: BoxFit.fill,
+            height: 200,
           ),
           FlatButton(
             padding: EdgeInsets.all(16),
@@ -95,7 +94,7 @@ class _ProfileState extends State<Profile> {
 
   _getLocalImage() async {
     File imageFile =
-    await ImagePicker.pickImage(source: ImageSource.gallery, imageQuality: 50, maxWidth: 400);
+    await ImagePicker.pickImage(source: ImageSource.gallery, imageQuality: 100, maxWidth: 400);
 
     if (imageFile != null) {
       setState(() {
@@ -105,10 +104,9 @@ class _ProfileState extends State<Profile> {
   }
 
   Widget _buildNameField() {
-    AuthNotifier authNotifier = Provider.of<AuthNotifier>(context);
     return TextFormField(
-      decoration: InputDecoration(labelText: 'User Name'),
-      initialValue:  authNotifier.user != null ?  authNotifier.user.displayName : "Feed",
+      decoration: InputDecoration(labelText: 'Fruit Name'),
+      initialValue: _currentFruit.name,
       keyboardType: TextInputType.text,
       style: TextStyle(fontSize: 20),
       validator: (String value) {
@@ -123,64 +121,87 @@ class _ProfileState extends State<Profile> {
         return null;
       },
       onSaved: (String value) {
-        _currentUser.displayName = value;
+        _currentFruit.name = value;
       },
     );
   }
 
   Widget _buildCategoryField() {
-    AuthNotifier authNotifier = Provider.of<AuthNotifier>(context);
     return TextFormField(
-      decoration: InputDecoration(labelText: 'Email'),
-      initialValue: authNotifier.user != null ?  authNotifier.user.email : "Null",
+      decoration: InputDecoration(labelText: 'Fruit Category'),
+      initialValue: _currentFruit.category,
       keyboardType: TextInputType.text,
       style: TextStyle(fontSize: 20),
       validator: (String value) {
         if (value.isEmpty) {
-          return 'Email is required';
+          return 'Category is required';
         }
 
         if (value.length < 3 || value.length > 20) {
-          return 'Email must be more than 3 and less than 20';
+          return 'Category must be more than 3 and less than 20';
         }
 
         return null;
       },
       onSaved: (String value) {
-        _currentUser.email = value;
+        _currentFruit.category = value;
       },
     );
   }
 
+  _buildSubingredientField() {
+    return SizedBox(
+      width: 200,
+      child: TextField(
+        controller: subingredientController,
+        keyboardType: TextInputType.text,
+        decoration: InputDecoration(labelText: 'Features'),
+        style: TextStyle(fontSize: 20),
+      ),
+    );
+  }
 
-
-
-
-  _onUserUploaded(User user) {
+  _onFruitUploaded(Fruit fruit) {
     FruitNotifier fruitNotifier = Provider.of<FruitNotifier>(context, listen: false);
-    fruitNotifier.addUser(user);
+    fruitNotifier.addFruit(fruit);
     Navigator.pop(context);
   }
 
+  _addSubingredient(String text) {
+    if (text.isNotEmpty) {
+      setState(() {
+        _subingredients.add(text);
+      });
+      subingredientController.clear();
+    }
+  }
 
+  _saveFavouriteFruit() {
+    print('saveFruit Called');
+    if (!_formKey.currentState.validate()) {
+      return;
+    }
 
+    _formKey.currentState.save();
 
+    print('form saved');
 
+    _currentFruit.subIngredients = _subingredients;
+
+    uploadFavouriteFruitAndImage(_currentFruit, widget.isUpdating, _imageFile, _onFruitUploaded);
+
+    print("name: ${_currentFruit.name}");
+    print("category: ${_currentFruit.category}");
+    print("subingredients: ${_currentFruit.subIngredients.toString()}");
+    print("_imageFile ${_imageFile.toString()}");
+    print("_imageUrl $_imageUrl");
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      appBar: AppBar(
-          leading: IconButton(
-            icon: Icon(
-              Icons.keyboard_backspace,
-            ),
-            onPressed: ()=>  Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
-              return MainScreen();
-            })),
-          ),
-          title: Text('Profile')),
+      appBar: AppBar(title: Text('Favourite Fruit Form')),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(32),
         child: Form(
@@ -190,7 +211,7 @@ class _ProfileState extends State<Profile> {
             _showImage(),
             SizedBox(height: 16),
             Text(
-              widget.isUpdating ? "Edit User" : "Create User Photo",
+              widget.isUpdating ? "Add Favourite Fruit" : "Create Fruit",
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 30),
             ),
@@ -211,57 +232,52 @@ class _ProfileState extends State<Profile> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-
+                _buildSubingredientField(),
+                ButtonTheme(
+                  child: RaisedButton(
+                    child: Text('Add', style: TextStyle(color: Colors.white)),
+                    onPressed: () => _addSubingredient(subingredientController.text),
+                  ),
+                )
               ],
             ),
             SizedBox(height: 16),
-
-            ListTile(
-              title: Text(
-                "Dark Mode",
-                style: TextStyle(
-                  fontSize: 17,
-                  fontWeight: FontWeight.w700,
+            GridView.count(
+              shrinkWrap: true,
+              scrollDirection: Axis.vertical,
+              padding: EdgeInsets.all(8),
+              crossAxisCount: 3,
+              crossAxisSpacing: 4,
+              mainAxisSpacing: 4,
+              children: _subingredients
+                  .map(
+                    (ingredient) => Card(
+                  color: Colors.black54,
+                  child: Center(
+                    child: Text(
+                      ingredient,
+                      style: TextStyle(color: Colors.white, fontSize: 14),
+                    ),
+                  ),
                 ),
-              ),
-
-              trailing: Switch(
-                value: Provider.of<AppProvider>(context).theme == Constants.lightTheme
-                    ? false
-                    : true,
-                onChanged: (v) async{
-                  if (v) {
-                    Provider.of<AppProvider>(context, listen: false)
-                        .setTheme(Constants.darkTheme, "dark");
-                  } else {
-                    Provider.of<AppProvider>(context, listen: false)
-                        .setTheme(Constants.lightTheme, "light");
-                  }
-                },
-                activeColor: Theme.of(context).accentColor,
-              ),
-            ),
-
-
-
+              )
+                  .toList(),
+            )
           ]),
         ),
       ),
-
-
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           FocusScope.of(context).requestFocus(new FocusNode());
-          //   _saveUser();
+          _saveFavouriteFruit();
         },
         child: Icon(Icons.save),
+        backgroundColor: Colors.pink,
         foregroundColor: Colors.white,
       ),
 
 
 
     );
-
   }
 }
-

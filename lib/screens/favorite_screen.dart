@@ -1,63 +1,168 @@
 import 'package:flutter/material.dart';
-import 'package:learn_a_fruit_flutter_app/util/fruits.dart';
-import 'package:learn_a_fruit_flutter_app/widgets/grid_product.dart';
+import 'package:learn_a_fruit_flutter_app/api/fruit_api.dart';
+import 'package:learn_a_fruit_flutter_app/notifier/auth_notifier.dart';
+import 'package:learn_a_fruit_flutter_app/notifier/fruit_notifier.dart';
+import 'package:provider/provider.dart';
+
+import 'detail.dart';
+import 'details.dart';
+import 'main_screen.dart';
+
+
 
 class FavoriteScreen extends StatefulWidget {
   @override
-  _FavoriteScreenState createState() => _FavoriteScreenState();
+  _FavouriteFruitBookState createState() => _FavouriteFruitBookState();
 }
 
-class _FavoriteScreenState extends State<FavoriteScreen> with AutomaticKeepAliveClientMixin<FavoriteScreen>{
+
+class _FavouriteFruitBookState extends State<FavoriteScreen> {
+
   @override
-  Widget build(BuildContext context) {
-    super.build(context);
-    return Scaffold(
-      body: Padding(
-        padding: EdgeInsets.fromLTRB(10.0,0,10.0,0),
-        child: ListView(
-          children: <Widget>[
-            SizedBox(height: 10.0),
-            Text(
-              "My Favorite Items",
-              style: TextStyle(
-                fontSize: 23,
-                fontWeight: FontWeight.w800,
-              ),
-            ),
-            SizedBox(height: 10.0),
-
-            GridView.builder(
-              shrinkWrap: true,
-              primary: false,
-              physics: NeverScrollableScrollPhysics(),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                childAspectRatio: MediaQuery.of(context).size.width /
-                    (MediaQuery.of(context).size.height / 1.25),
-              ),
-              itemCount: fruits == null ? 0 :fruits.length,
-              itemBuilder: (BuildContext context, int index) {
-//                Food food = Food.fromJson(foods[index]);
-                Map food = fruits[index];
-//                print(foods);
-//                print(foods.length);
-                return GridProduct(
-                  img: food['img'],
-                  isFav: true,
-                  name: food['name'],
-                  rating: 5.0,
-                  raters: 23,
-                );
-              },
-            ),
-
-            SizedBox(height: 30),
-          ],
-        ),
-      ),
-    );
+  void initState() {
+    FruitNotifier fruitNotifier = Provider.of<FruitNotifier>(context, listen: false);
+    getFavouriteFruits(fruitNotifier);
+    super.initState();
   }
 
   @override
-  bool get wantKeepAlive => true;
+  Widget build(BuildContext context) {
+    AuthNotifier authNotifier = Provider.of<AuthNotifier>(context);
+    FruitNotifier fruitNotifier = Provider.of<FruitNotifier>(context);
+
+    Future<void> _refreshList() async {
+      getFavouriteFruits(fruitNotifier);
+    }
+
+    print("Opening Favourite Fruit Book");
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(
+            Icons.keyboard_backspace,
+          ),
+          onPressed: ()=>  Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
+            return MainScreen();
+          })),
+        ),
+        title: Text(
+          authNotifier.user != null ? authNotifier.user.displayName : "Favourite Fruit Book",
+        ),
+        actions: <Widget>[
+          // action button
+          FlatButton(
+            onPressed: () => signout(authNotifier),
+            child: Text(
+              "Logout",
+              style: TextStyle(fontSize: 20, color: Colors.blue),
+            ),
+          ),
+        ],
+      ),
+      body: new RefreshIndicator(
+        child: ListView.separated(
+          itemBuilder: (BuildContext context, int index) {
+            return ListTile(
+              leading: CircleAvatar(
+                radius: 25.0,
+                child: Image.network(
+                  fruitNotifier.fruitList[index].image != null
+                      ? fruitNotifier.fruitList[index].image
+                      : 'https://www.testingxperts.com/wp-content/uploads/2019/02/placeholder-img.jpg',
+                  width: 150,height: 1000,
+                  fit: BoxFit.fill,
+                ),
+              ),
+
+              title: Text(fruitNotifier.fruitList[index].name),
+              subtitle: Text(fruitNotifier.fruitList[index].category),
+              onTap: () {
+                fruitNotifier.currentFruit = fruitNotifier.fruitList[index];
+                Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
+                  return FruitDetail();
+                }));
+              },
+
+
+            );
+
+          },
+
+          itemCount: fruitNotifier.fruitList.length,
+          separatorBuilder: (BuildContext context, int index) {
+
+
+            InkWell(
+              child: ListView(
+                shrinkWrap: true,
+                primary: false,
+                children: <Widget>[
+                  Stack(
+                    children: <Widget>[
+                      Positioned(
+                        right: -10.0,
+                        bottom: 3.0,
+                        child: RawMaterialButton(
+                          onPressed: (){},
+                          fillColor: Colors.blue,
+                          shape: CircleBorder(),
+                          elevation: 4.0,
+                          child: Padding(
+                            padding: EdgeInsets.all(5),
+                            child: Icon(
+                              Icons.favorite,
+                              color: Colors.red,
+                              size: 17,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+
+
+                  ),
+
+
+
+
+
+
+                ],
+              ),
+              onTap: (){
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (BuildContext context){
+                      return ProductDetails();
+                    },
+                  ),
+                );
+              },
+            );
+
+
+            return Divider(
+              color: Colors.black,
+            );
+          },
+        ),
+        onRefresh: _refreshList,
+      ),
+
+     /* floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          fruitNotifier.currentFruit = null;
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (BuildContext context) {
+              return FruitForm(
+                isUpdating: false,
+              );
+            }),
+          );
+        },
+        child: Icon(Icons.add),
+        foregroundColor: Colors.white,
+      ),*/
+    );
+  }
 }

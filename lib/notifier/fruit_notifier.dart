@@ -1,5 +1,6 @@
 import 'dart:collection';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:learn_a_fruit_flutter_app/model/fruit.dart';
 import 'package:learn_a_fruit_flutter_app/model/user.dart';
 import 'package:flutter/cupertino.dart';

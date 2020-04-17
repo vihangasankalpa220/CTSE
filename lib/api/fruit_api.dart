@@ -80,6 +80,24 @@ getFruits(FruitNotifier fruitNotifier) async {
   fruitNotifier.fruitList = _fruitList;
 }
 
+
+getFavouriteFruits(FruitNotifier fruitNotifier) async {
+  QuerySnapshot snapshot = await Firestore.instance
+      .collection('FFruits')
+      .orderBy("createdAt", descending: true)
+      .getDocuments();
+
+  List<Fruit> _fruitList = [];
+
+  snapshot.documents.forEach((document) {
+    Fruit fruit = Fruit.fromMap(document.data);
+    _fruitList.add(fruit);
+  });
+
+  fruitNotifier.fruitList = _fruitList;
+}
+
+
 uploadFruitAndImage(Fruit fruit, bool isUpdating, File localFile, Function fruitUploaded) async {
   if (localFile != null) {
     print("uploading image");
@@ -134,6 +152,72 @@ _uploadFruit(Fruit fruit, bool isUpdating, Function fruitUploaded, {String image
     fruitUploaded(fruit);
   }
 }
+
+
+uploadFavouriteFruitAndImage(Fruit fruit, bool isUpdating, File localFile, Function fruitUploaded) async {
+  if (localFile != null) {
+ //   print("uploading image");
+
+//    var fileExtension = path.extension(localFile.path);
+ //   print(fileExtension);
+
+  //  var uuid = Uuid().v4();
+
+ //   final StorageReference firebaseStorageRef =
+ //   FirebaseStorage.instance.ref().child('ffruits/images/$uuid$fileExtension');
+
+ //   await firebaseStorageRef.putFile(localFile).onComplete.catchError((onError) {
+ //     print(onError);
+  //    return false;
+ //   });
+
+  //  String url = await firebaseStorageRef.getDownloadURL();
+  //  print("download url: $url");
+  //  _uploadFavouriteFruit(fruit, isUpdating, fruitUploaded, imageUrl: url);
+    print('...skipping image upload');
+    _uploadFavouriteFruit(fruit, isUpdating, fruitUploaded);
+  } else {
+    print('...skipping image upload');
+    _uploadFavouriteFruit(fruit, isUpdating, fruitUploaded);
+  }
+}
+
+_uploadFavouriteFruit(Fruit fruit, bool isUpdating, Function fruitUploaded, {String imageUrl}) async {
+  CollectionReference fruitRef = Firestore.instance.collection('FFruits');
+
+  if (imageUrl != null) {
+    fruit.image = imageUrl;
+  }
+
+  if (isUpdating) {
+    fruit.createdAt = Timestamp.now();
+
+    DocumentReference documentRef = await fruitRef.add(fruit.toMap());
+
+    fruit.id = documentRef.documentID;
+
+    print('uploaded fruit successfully: ${fruit.toString()}');
+
+    await documentRef.setData(fruit.toMap(), merge: true);
+
+    fruitUploaded(fruit);
+
+  } else {
+    fruit.createdAt = Timestamp.now();
+
+    DocumentReference documentRef = await fruitRef.add(fruit.toMap());
+
+    fruit.id = documentRef.documentID;
+
+    print('uploaded fruit successfully: ${fruit.toString()}');
+
+    await documentRef.setData(fruit.toMap(), merge: true);
+
+    fruitUploaded(fruit);
+  }
+}
+
+
 
 deleteFruit(Fruit fruit, Function fruitDeleted) async {
   if (fruit.image != null) {
