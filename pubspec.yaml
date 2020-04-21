@@ -31,6 +31,7 @@ dependencies:
   shared_preferences: ^0.5.6
   font_awesome_flutter: ^8.5.0
   carousel_slider: ^1.4.1
+  flutter_bloc: ^2.1.1
 
 dev_dependencies:
   flutter_test:
@@ -79,6 +80,7 @@ flutter:
     - assets/fruit11.jpg
     - assets/fruit12.jpg
     - assets/cm4.jpeg
+    - assets/v.bmp
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

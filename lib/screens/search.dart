@@ -73,7 +73,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         icon: Icon(Icons.arrow_back),
                         iconSize: 20.0,
                         onPressed: () {
-                          Navigator.of(context).pop();
+                          queryResultSet;
                         },
                       ),
                       contentPadding: EdgeInsets.only(left: 25.0),

@@ -7,6 +7,8 @@ import 'package:learn_a_fruit_flutter_app/screens/profile.dart';
 import 'package:learn_a_fruit_flutter_app/screens/search.dart';
 import 'package:learn_a_fruit_flutter_app/util/const.dart';
 import 'package:learn_a_fruit_flutter_app/widgets/badge.dart';
+import 'package:learn_a_fruit_flutter_app/widgets/SideBarMain.dart';
+import 'package:learn_a_fruit_flutter_app/widgets/sidecomponents.dart';
 
 
 class MainScreen extends StatefulWidget {
@@ -14,7 +16,7 @@ class MainScreen extends StatefulWidget {
   _MainScreenState createState() => _MainScreenState();
 }
 
-class _MainScreenState extends State<MainScreen> {
+class _MainScreenState extends State<MainScreen> with NavigationStates {
   PageController _pageController;
   int _page = 0;
 
@@ -59,6 +61,7 @@ class _MainScreenState extends State<MainScreen> {
             FavoriteScreen(),
             SearchScreen(),
             Profile(isUpdating: false),
+            SideBarLayout(),
           ],
         ),
 
@@ -118,6 +121,20 @@ class _MainScreenState extends State<MainScreen> {
                     .of(context)
                     .textTheme.caption.color,
                 onPressed: ()=>_pageController.jumpToPage(3),
+              ),
+
+
+              IconButton(
+                icon:Icon(
+                  Icons.apps,
+                  size: 24.0,
+                ),
+                color: _page == 4
+                    ? Theme.of(context).accentColor
+                    : Theme
+                    .of(context)
+                    .textTheme.caption.color,
+                onPressed: ()=>_pageController.jumpToPage(4),
               ),
 
               SizedBox(width:7),
