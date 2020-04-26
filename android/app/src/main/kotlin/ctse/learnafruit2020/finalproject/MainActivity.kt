@@ -1,4 +1,4 @@
-package com.example.learn_a_fruit_flutter_app
+package ctse.learnafruit2020.finalproject
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity

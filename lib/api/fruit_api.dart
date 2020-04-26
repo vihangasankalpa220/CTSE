@@ -1,9 +1,10 @@
 import 'dart:io';
-import 'package:learn_a_fruit_flutter_app/model/fruit.dart';
-import 'package:learn_a_fruit_flutter_app/model/user.dart';
-import 'package:learn_a_fruit_flutter_app/notifier/auth_notifier.dart';
-import 'package:learn_a_fruit_flutter_app/notifier/fruit_notifier.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:finalproject/model/fruit.dart';
+import 'package:finalproject/model/user.dart';
+import 'package:finalproject/notifier/auth_notifier.dart';
+import 'package:finalproject/notifier/fruit_notifier.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path/path.dart' as path;
@@ -232,6 +233,22 @@ deleteFruit(Fruit fruit, Function fruitDeleted) async {
   }
 
   await Firestore.instance.collection('Fruits').document(fruit.id).delete();
+  fruitDeleted(fruit);
+}
+
+deleteFavouriteFruit(Fruit fruit, Function fruitDeleted) async {
+  if (fruit.image != null) {
+    StorageReference storageReference =
+    await FirebaseStorage.instance.getReferenceFromUrl(fruit.image);
+
+    print(storageReference.path);
+
+    await storageReference.delete();
+
+    print('image deleted');
+  }
+
+  await Firestore.instance.collection('FFruits').document(fruit.id).delete();
   fruitDeleted(fruit);
 }
 

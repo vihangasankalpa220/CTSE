@@ -1,10 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:learn_a_fruit_flutter_app/screens/login.dart';
-import 'package:learn_a_fruit_flutter_app/screens/main_screen.dart';
 
-import 'home.dart';
+import 'main_screen.dart';
 
 
 class SplashScreen extends StatefulWidget {
@@ -15,7 +13,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
 
   startTimeout() {
-    return  Timer(Duration(seconds: 5), changeScreen);
+    return  Timer(Duration(seconds: 10), changeScreen);
   }
 
   changeScreen() async{
@@ -35,55 +33,43 @@ class _SplashScreenState extends State<SplashScreen> {
     startTimeout();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       body: Container(
-        margin: EdgeInsets.only(left: 40.0, right: 40.0),
+        margin: EdgeInsets.only(left: 40.0, right: 40.0, top: 100.0),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               Image.asset(
-                'assets/app_logo.png',
+                'assets/learnafruit.gif',
                 width: 600.0,
-                height: 220.0,
-                fit: BoxFit.contain,
+                height: 400.0,
+                fit: BoxFit.fitHeight,
               ),
               Padding(
                 padding: EdgeInsets.only(top: 40),
               ),
 
-//              Icon(
-//
-//
-//                          Icons.person
-//
-//              ),
-           // SizedBox(width: 20.0),
-
-          Expanded(
-            flex: 10,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                LinearProgressIndicator(),
-                Padding(
-                 padding: EdgeInsets.only(top: 100),
+              Expanded(
+                flex: 10,
+                child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    LinearProgressIndicator(),
+                    Padding(
+                      padding: EdgeInsets.only(top: 50),
+                    ),
+                    Text(
+                      "Loading Learn a Fruit...",
+                      style: TextStyle(color: Colors.green, fontSize: 20),
+                    ),
+                  ],
                 ),
-
-                  Text(
-                    "Learn A Fruit is Loading.........",
-                    style: TextStyle(color: Colors.green, fontSize: 14),
-                  ),
-              ],
-            ),
-            ),
-
-
+              ),
             ],
           ),
         ),

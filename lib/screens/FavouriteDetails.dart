@@ -6,12 +6,11 @@ import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 import 'dart:io';
-import 'favourite_form.dart';
-import 'fruit_form.dart';
 
-class FruitDetail extends StatelessWidget {
+
+class FavouriteDetails extends StatelessWidget {
   final bool isUpdating;
-  FruitDetail({@required this.isUpdating});
+  FavouriteDetails({@required this.isUpdating});
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -27,7 +26,7 @@ class FruitDetail extends StatelessWidget {
 
     _onFruitDeleted(Fruit fruit) {
       Navigator.pop(context);
-      fruitNotifier.deleteFruit(fruit);
+      fruitNotifier.deleteFavouriteFruit(fruit);
     }
 
     _onFruitUploaded(Fruit fruit) {
@@ -150,15 +149,15 @@ class FruitDetail extends StatelessWidget {
                   children: fruitNotifier.currentFruit.countries
                       .map(
                         (ingredient) => Card(
-                          color: Colors.black54,
-                          child: Center(
-                            child: Text(
-                              ingredient,
-                              style: TextStyle(color: Colors.white, fontSize: 16),
-                            ),
-                          ),
+                      color: Colors.black54,
+                      child: Center(
+                        child: Text(
+                          ingredient,
+                          style: TextStyle(color: Colors.white, fontSize: 16),
                         ),
-                      )
+                      ),
+                    ),
+                  )
                       .toList(),
                 )
               ],
@@ -169,37 +168,7 @@ class FruitDetail extends StatelessWidget {
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
-          FloatingActionButton(
-            heroTag: 'button0',
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(builder: (BuildContext context) {
-                  return FavouriteForm(
-                    isUpdating: true,
-                  );
-                }),
-              );
-            },
-            child: Icon(Icons.favorite),
-            backgroundColor: Colors.deepPurple,
-            foregroundColor: Colors.white,
-          ),
-          SizedBox(height: 20),
-          FloatingActionButton(
-            heroTag: 'button1',
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(builder: (BuildContext context) {
-                  return FruitForm(
-                    isUpdating: true,
-                  );
-                }),
-              );
-            },
-            child: Icon(Icons.edit),
-            backgroundColor: Colors.blue,
-            foregroundColor: Colors.white,
-          ),
+
           SizedBox(height: 20),
           FloatingActionButton(
             heroTag: 'button2',

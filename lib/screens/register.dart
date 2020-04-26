@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:learn_a_fruit_flutter_app/screens/main_screen.dart';
+
+import 'main_screen.dart';
+
 
 
 class RegisterScreen extends StatefulWidget {

@@ -1,10 +1,12 @@
+import 'package:finalproject/util/categories.dart';
+import 'package:finalproject/util/fruits.dart';
+import 'package:finalproject/widgets/badge.dart';
+import 'package:finalproject/widgets/grid_product.dart';
+import 'package:finalproject/widgets/home_category.dart';
 import 'package:flutter/material.dart';
-import 'package:learn_a_fruit_flutter_app/screens/notifications.dart';
-import 'package:learn_a_fruit_flutter_app/util/categories.dart';
-import 'package:learn_a_fruit_flutter_app/util/fruits.dart';
-import 'package:learn_a_fruit_flutter_app/widgets/badge.dart';
-import 'package:learn_a_fruit_flutter_app/widgets/grid_product.dart';
-import 'package:learn_a_fruit_flutter_app/widgets/home_category.dart';
+
+import 'notifications.dart';
+
 
 class CategoriesScreen extends StatefulWidget {
   @override

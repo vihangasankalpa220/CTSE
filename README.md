@@ -1,6 +1,6 @@
-# learn_a_fruit_flutter_app
+# finalproject
 
-A new Flutter project.
+ctse final project
 
 ## Getting Started
 

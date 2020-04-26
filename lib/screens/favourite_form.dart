@@ -1,8 +1,8 @@
 import 'dart:io';
 
-import 'package:learn_a_fruit_flutter_app/api/fruit_api.dart';
-import 'package:learn_a_fruit_flutter_app/model/fruit.dart';
-import 'package:learn_a_fruit_flutter_app/notifier/fruit_notifier.dart';
+import 'package:finalproject/api/fruit_api.dart';
+import 'package:finalproject/model/fruit.dart';
+import 'package:finalproject/notifier/fruit_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -20,11 +20,11 @@ class _FavouriteFormState extends State<FavouriteForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  List _subingredients = [];
+  List _countries = [];
   Fruit _currentFruit;
   String _imageUrl;
   File _imageFile;
-  TextEditingController subingredientController = new TextEditingController();
+  TextEditingController countriesController = new TextEditingController();
 
   @override
   void initState() {
@@ -37,7 +37,7 @@ class _FavouriteFormState extends State<FavouriteForm> {
       _currentFruit = Fruit();
     }
 
-    _subingredients.addAll(_currentFruit.subIngredients);
+    _countries.addAll(_currentFruit.countries);
     _imageUrl = _currentFruit.image;
   }
 
@@ -149,11 +149,11 @@ class _FavouriteFormState extends State<FavouriteForm> {
     );
   }
 
-  _buildSubingredientField() {
+  _buildCountryField() {
     return SizedBox(
       width: 200,
       child: TextField(
-        controller: subingredientController,
+        controller: countriesController,
         keyboardType: TextInputType.text,
         decoration: InputDecoration(labelText: 'Features'),
         style: TextStyle(fontSize: 20),
@@ -167,12 +167,12 @@ class _FavouriteFormState extends State<FavouriteForm> {
     Navigator.pop(context);
   }
 
-  _addSubingredient(String text) {
+  _addCountry(String text) {
     if (text.isNotEmpty) {
       setState(() {
-        _subingredients.add(text);
+        _countries.add(text);
       });
-      subingredientController.clear();
+      countriesController.clear();
     }
   }
 
@@ -186,13 +186,13 @@ class _FavouriteFormState extends State<FavouriteForm> {
 
     print('form saved');
 
-    _currentFruit.subIngredients = _subingredients;
+    _currentFruit.countries = _countries;
 
     uploadFavouriteFruitAndImage(_currentFruit, widget.isUpdating, _imageFile, _onFruitUploaded);
 
     print("name: ${_currentFruit.name}");
     print("category: ${_currentFruit.category}");
-    print("subingredients: ${_currentFruit.subIngredients.toString()}");
+    print("Countries: ${_currentFruit.countries.toString()}");
     print("_imageFile ${_imageFile.toString()}");
     print("_imageUrl $_imageUrl");
   }
@@ -232,11 +232,11 @@ class _FavouriteFormState extends State<FavouriteForm> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                _buildSubingredientField(),
+                _buildCountryField(),
                 ButtonTheme(
                   child: RaisedButton(
                     child: Text('Add', style: TextStyle(color: Colors.white)),
-                    onPressed: () => _addSubingredient(subingredientController.text),
+                    onPressed: () => _addCountry(countriesController.text),
                   ),
                 )
               ],
@@ -249,7 +249,7 @@ class _FavouriteFormState extends State<FavouriteForm> {
               crossAxisCount: 3,
               crossAxisSpacing: 4,
               mainAxisSpacing: 4,
-              children: _subingredients
+              children: _countries
                   .map(
                     (ingredient) => Card(
                   color: Colors.black54,

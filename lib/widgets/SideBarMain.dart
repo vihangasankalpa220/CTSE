@@ -1,11 +1,10 @@
 
 
 import 'package:bloc/bloc.dart';
+import 'package:finalproject/screens/favorite_screen.dart';
+import 'package:finalproject/screens/home.dart';
+import 'package:finalproject/screens/notifications.dart';
 
-import 'package:learn_a_fruit_flutter_app/screens/favorite_screen.dart';
-import 'package:learn_a_fruit_flutter_app/screens/home.dart';
-import 'package:learn_a_fruit_flutter_app/screens/main_screen.dart';
-import 'package:learn_a_fruit_flutter_app/screens/notifications.dart';
 
 import 'sidebarinvoker.dart';
 
@@ -21,7 +20,6 @@ abstract class NavigationStates {}
 class NavigationBloc extends Bloc<NavigationEvents, NavigationStates> {
 
   @override
-  // TODO: implement initialState
   NavigationStates get initialState => MyAccountsPage();
 
 
@@ -37,7 +35,6 @@ class NavigationBloc extends Bloc<NavigationEvents, NavigationStates> {
          FavoriteScreen();
         break;
       case NavigationEvents.HomePageClickedEvent:
-        // TODO: Handle this case.
         break;
     }
   }

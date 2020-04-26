@@ -1,20 +1,11 @@
 import 'dart:async';
 
+import 'package:finalproject/notifier/auth_notifier.dart';
+import 'package:finalproject/providers/app_provider.dart';
+import 'package:finalproject/util/const.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:learn_a_fruit_flutter_app/notifier/auth_notifier.dart';
-import 'package:learn_a_fruit_flutter_app/providers/app_provider.dart';
-import 'package:learn_a_fruit_flutter_app/screens/FruitBook.dart';
-import 'package:learn_a_fruit_flutter_app/screens/favorite_screen.dart';
-import 'package:learn_a_fruit_flutter_app/screens/home.dart';
-import 'package:learn_a_fruit_flutter_app/screens/main_screen.dart';
-import 'package:learn_a_fruit_flutter_app/screens/profile.dart';
-import 'package:learn_a_fruit_flutter_app/util/const.dart';
-import 'package:learn_a_fruit_flutter_app/widgets/menu_item.dart';
 import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
-
-
 
 
 class SideBar extends StatefulWidget {
@@ -87,7 +78,7 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin<S
                       ),
                   ListTile(
                     title: Text(
-                "Vihanga Sankalpa : 4th year 1st Semester Student",
+                      "Vihanga Sankalpa : 4th year 1st Semester Student",
                       style: TextStyle(color: Colors.deepPurple, fontSize: 30, fontWeight: FontWeight.w800),
                     ),
                       leading: CircleAvatar(
@@ -109,12 +100,12 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin<S
 
                       ListTile(
                         title: Text(
-                          "Hashini Wichramasooriya : 4th year 1st Semester Student",
+                          "Hashini Warnakulasooriya : 4th year 1st Semester Student",
                           style: TextStyle(color: Colors.deepPurple, fontSize: 30, fontWeight: FontWeight.w800),
                         ),
                         leading: CircleAvatar(
                           child   :Image.asset(
-                            'assets/v.bmp',
+                            'assets/hashini.bmp',
                             width: 670.0,
                             height: 300.0,
                           ),

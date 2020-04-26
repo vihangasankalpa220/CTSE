@@ -1,10 +1,11 @@
+import 'package:finalproject/api/fruit_api.dart';
+import 'package:finalproject/notifier/auth_notifier.dart';
+import 'package:finalproject/notifier/fruit_notifier.dart';
 import 'package:flutter/material.dart';
-import 'package:learn_a_fruit_flutter_app/api/fruit_api.dart';
-import 'package:learn_a_fruit_flutter_app/notifier/auth_notifier.dart';
-import 'package:learn_a_fruit_flutter_app/notifier/fruit_notifier.dart';
+
 import 'package:provider/provider.dart';
 
-import 'detail.dart';
+import 'FavouriteDetails.dart';
 import 'details.dart';
 import 'main_screen.dart';
 
@@ -79,7 +80,7 @@ class _FavouriteFruitBookState extends State<FavoriteScreen> {
               onTap: () {
                 fruitNotifier.currentFruit = fruitNotifier.fruitList[index];
                 Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
-                  return FruitDetail();
+                  return FavouriteDetails();
                 }));
               },
 

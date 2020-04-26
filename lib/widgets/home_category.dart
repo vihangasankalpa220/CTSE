@@ -1,5 +1,6 @@
+import 'package:finalproject/screens/categories_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:learn_a_fruit_flutter_app/screens/categories_screen.dart';
+
 
 
 class HomeCategory extends StatefulWidget {

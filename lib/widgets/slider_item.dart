@@ -1,5 +1,6 @@
+import 'package:finalproject/screens/details.dart';
 import 'package:flutter/material.dart';
-import 'package:learn_a_fruit_flutter_app/screens/details.dart';
+
 
 class SliderItem extends StatelessWidget {
 

@@ -1,8 +1,9 @@
 import 'dart:collection';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:learn_a_fruit_flutter_app/model/fruit.dart';
-import 'package:learn_a_fruit_flutter_app/model/user.dart';
+import 'package:finalproject/model/fruit.dart';
+import 'package:finalproject/model/user.dart';
+
 import 'package:flutter/cupertino.dart';
 
 class FruitNotifier with ChangeNotifier {
@@ -51,4 +52,11 @@ class FruitNotifier with ChangeNotifier {
     _fruitList.removeWhere((_fruit) => _fruit.id == fruit.id);
     notifyListeners();
   }
+
+  deleteFavouriteFruit(Fruit fruit) {
+    _fruitList.removeWhere((_fruit) => _fruit.id == fruit.id);
+    notifyListeners();
+  }
+
+
 }

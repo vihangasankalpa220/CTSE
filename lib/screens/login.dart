@@ -1,9 +1,9 @@
 
+import 'package:finalproject/api/fruit_api.dart';
+import 'package:finalproject/model/user.dart';
+import 'package:finalproject/notifier/auth_notifier.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:learn_a_fruit_flutter_app/api/fruit_api.dart';
-import 'package:learn_a_fruit_flutter_app/model/user.dart';
-import 'package:learn_a_fruit_flutter_app/notifier/auth_notifier.dart';
+
 import 'package:provider/provider.dart';
 
 enum AuthMode { Signup, Login }
@@ -191,7 +191,6 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                   SizedBox(height: 16),
-
                   ButtonTheme(
                     minWidth: 200,
                     child: RaisedButton(
@@ -203,52 +202,6 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                   ),
-
-                  SizedBox(height: 16),
-                  Center(
-                    child: Container(
-                      width: MediaQuery.of(context).size.width/2,
-                      child: Row(
-                        children: <Widget>[
-                          RawMaterialButton(
-                            onPressed: (){},
-                            fillColor: Colors.blue[800],
-                            shape: CircleBorder(),
-                            elevation: 4.0,
-                            child: Padding(
-                              padding: EdgeInsets.all(15),
-                              child: Icon(
-                                FontAwesomeIcons.facebookF,
-                                color: Colors.white,
-//              size: 24.0,
-                              ),
-                            ),
-                          ),
-
-                          RawMaterialButton(
-                            onPressed: ()   async {
-                            },
-                            fillColor: Colors.white,
-                            shape: CircleBorder(),
-                            elevation: 4.0,
-                            child: Padding(
-                              padding: EdgeInsets.all(15),
-                              child: Icon(
-                                FontAwesomeIcons.google,
-                                color: Colors.blue[800],
-//              size: 24.0,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-
-                  SizedBox(height: 16),
-                  SizedBox(height: 16),
-
-
                 ],
               ),
             ),

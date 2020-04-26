@@ -5,7 +5,7 @@ class Fruit {
   String name;
   String category;
   String image;
-  List subIngredients = [];
+  List countries = [];
   Timestamp createdAt;
   Timestamp updatedAt;
 
@@ -17,7 +17,7 @@ class Fruit {
     name = data['name'];
     category = data['category'];
     image = data['image'];
-    subIngredients = data['subIngredients'];
+    countries = data['countries'];
     createdAt = data['createdAt'];
     updatedAt = data['updatedAt'];
   }
@@ -28,7 +28,7 @@ class Fruit {
       'name': name,
       'category': category,
       'image': image,
-      'subIngredients': subIngredients,
+      'countries': countries,
       'createdAt': createdAt,
       'updatedAt': updatedAt
     };

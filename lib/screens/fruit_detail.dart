@@ -1,7 +1,8 @@
+import 'package:finalproject/providers/app_provider.dart';
+import 'package:finalproject/util/const.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:learn_a_fruit_flutter_app/providers/app_provider.dart';
-import 'package:learn_a_fruit_flutter_app/util/const.dart';
+
 
 class FruitDetail extends StatefulWidget {
   @override

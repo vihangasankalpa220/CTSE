@@ -1,11 +1,13 @@
 import 'dart:io';
-import 'package:learn_a_fruit_flutter_app/model/user.dart';
-import 'package:learn_a_fruit_flutter_app/notifier/auth_notifier.dart';
-import 'package:learn_a_fruit_flutter_app/notifier/fruit_notifier.dart';
+
+import 'package:finalproject/model/user.dart';
+import 'package:finalproject/notifier/auth_notifier.dart';
+import 'package:finalproject/notifier/fruit_notifier.dart';
+import 'package:finalproject/providers/app_provider.dart';
+import 'package:finalproject/util/const.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:learn_a_fruit_flutter_app/providers/app_provider.dart';
-import 'package:learn_a_fruit_flutter_app/util/const.dart';
+
 import 'package:provider/provider.dart';
 
 import 'main_screen.dart';

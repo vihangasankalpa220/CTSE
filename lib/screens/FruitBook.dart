@@ -1,11 +1,12 @@
-import 'package:learn_a_fruit_flutter_app/api/fruit_api.dart';
-import 'package:learn_a_fruit_flutter_app/notifier/auth_notifier.dart';
-import 'package:learn_a_fruit_flutter_app/notifier/fruit_notifier.dart';
-import 'package:learn_a_fruit_flutter_app/screens/fruit_form.dart';
+
+import 'package:finalproject/api/fruit_api.dart';
+import 'package:finalproject/notifier/auth_notifier.dart';
+import 'package:finalproject/notifier/fruit_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'detail.dart';
 import 'details.dart';
+import 'fruit_form.dart';
 
 
 class FruitBook extends StatefulWidget {

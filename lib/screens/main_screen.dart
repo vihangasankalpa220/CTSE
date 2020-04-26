@@ -1,14 +1,15 @@
+import 'package:finalproject/screens/profile.dart';
+import 'package:finalproject/util/const.dart';
+import 'package:finalproject/widgets/SideBarMain.dart';
+import 'package:finalproject/widgets/badge.dart';
+import 'package:finalproject/widgets/sidecomponents.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:learn_a_fruit_flutter_app/screens/favorite_screen.dart';
-import 'package:learn_a_fruit_flutter_app/screens/home.dart';
-import 'package:learn_a_fruit_flutter_app/screens/notifications.dart';
-import 'package:learn_a_fruit_flutter_app/screens/profile.dart';
-import 'package:learn_a_fruit_flutter_app/screens/search.dart';
-import 'package:learn_a_fruit_flutter_app/util/const.dart';
-import 'package:learn_a_fruit_flutter_app/widgets/badge.dart';
-import 'package:learn_a_fruit_flutter_app/widgets/SideBarMain.dart';
-import 'package:learn_a_fruit_flutter_app/widgets/sidecomponents.dart';
+
+import 'favorite_screen.dart';
+import 'home.dart';
+import 'notifications.dart';
+
 
 
 class MainScreen extends StatefulWidget {
@@ -59,7 +60,6 @@ class _MainScreenState extends State<MainScreen> with NavigationStates {
           children: <Widget>[
             Home(),
             FavoriteScreen(),
-            SearchScreen(),
             Profile(isUpdating: false),
             SideBarLayout(),
           ],
@@ -97,9 +97,11 @@ class _MainScreenState extends State<MainScreen> with NavigationStates {
                 onPressed: ()=>_pageController.jumpToPage(1),
               ),
 
+
+
               IconButton(
                 icon: Icon(
-                  Icons.search,
+                  Icons.person,
                   size: 24.0,
                 ),
                 color: _page == 2
@@ -110,9 +112,10 @@ class _MainScreenState extends State<MainScreen> with NavigationStates {
                 onPressed: ()=>_pageController.jumpToPage(2),
               ),
 
+
               IconButton(
-                icon: Icon(
-                  Icons.person,
+                icon:Icon(
+                  Icons.apps,
                   size: 24.0,
                 ),
                 color: _page == 3
@@ -121,20 +124,6 @@ class _MainScreenState extends State<MainScreen> with NavigationStates {
                     .of(context)
                     .textTheme.caption.color,
                 onPressed: ()=>_pageController.jumpToPage(3),
-              ),
-
-
-              IconButton(
-                icon:Icon(
-                  Icons.apps,
-                  size: 24.0,
-                ),
-                color: _page == 4
-                    ? Theme.of(context).accentColor
-                    : Theme
-                    .of(context)
-                    .textTheme.caption.color,
-                onPressed: ()=>_pageController.jumpToPage(4),
               ),
 
               SizedBox(width:7),

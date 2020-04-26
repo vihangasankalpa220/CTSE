@@ -1,14 +1,18 @@
 import 'dart:io';
 
+import 'package:finalproject/api/fruit_api.dart';
+import 'package:finalproject/notifier/auth_notifier.dart';
+import 'package:finalproject/notifier/fruit_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:learn_a_fruit_flutter_app/api/fruit_api.dart';
-import 'package:learn_a_fruit_flutter_app/notifier/auth_notifier.dart';
-import 'package:learn_a_fruit_flutter_app/notifier/fruit_notifier.dart';
+
+
 import 'package:provider/provider.dart';
-import 'package:learn_a_fruit_flutter_app/screens/profile.dart';
-import 'package:learn_a_fruit_flutter_app/screens/FruitBook.dart';
+
+import 'FruitBook.dart';
+
+
 
 class Home extends StatefulWidget {
   @override
@@ -35,7 +39,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home>{
   ];
 
   File _image;
-  String _uploadedFileURL;  
+  String _uploadedFileURL;
 
   @override
   Widget build(BuildContext context) {
@@ -274,6 +278,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home>{
 //             ),
 
             SizedBox(height: 30),
+
           ],
         ),
       ),

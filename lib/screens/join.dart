@@ -1,7 +1,9 @@
+import 'package:finalproject/screens/register.dart';
 import 'package:flutter/material.dart';
-import 'package:learn_a_fruit_flutter_app/screens/login.dart';
-import 'package:learn_a_fruit_flutter_app/screens/register.dart';
+
 import 'package:flutter/services.dart';
+
+import 'login.dart';
 
 class JoinApp extends StatefulWidget {
   @override

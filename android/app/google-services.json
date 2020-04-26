@@ -8,6 +8,35 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:934256167073:android:8163c6d7b5b0d65f9088e0",
+        "android_client_info": {
+          "package_name": "ctse.learnafruit2020.finalproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "934256167073-mbtnf5errq7hsitjikmlcg8vk460lol2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDECdVhY7S7xtRsXFksSfCFQx2udnQ7ZZg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "934256167073-mbtnf5errq7hsitjikmlcg8vk460lol2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:934256167073:android:13ebc9d297339e3c9088e0",
         "android_client_info": {
           "package_name": "learnafruit.it17035118"
