@@ -1,8 +1,8 @@
 
 
 import 'package:bloc/bloc.dart';
-import 'package:finalproject/screens/favorite_screen.dart';
-import 'package:finalproject/screens/home.dart';
+import 'package:finalproject/DisplayUI/favorite_screen.dart';
+import 'package:finalproject/DisplayUI/MainPageDisplay.dart';
 
 
 import 'sidebarinvoker.dart';
@@ -25,7 +25,7 @@ class NavigationBloc extends Bloc<NavigationEvents, NavigationStates> {
   Stream<NavigationStates> mapEventToState(NavigationEvents event) async* {
     switch (event) {
       case NavigationEvents.MyAccountClickedEvent:
-       Home();
+       HomeScreenUI();
         break;
       case NavigationEvents.MyOrdersClickedEvent:
          FavoriteScreen();

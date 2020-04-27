@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:finalproject/notifier/auth_notifier.dart';
-import 'package:finalproject/providers/app_provider.dart';
-import 'package:finalproject/util/const.dart';
+import 'package:finalproject/CrudControllers/authentication_Controller.dart';
+import 'package:finalproject/LearnAFruitproviders/LearnAFruit_provider.dart';
+import 'package:finalproject/LearnAFruitUtilities/constColourAttributer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
@@ -53,7 +53,7 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin<S
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    AuthNotifier authNotifier = Provider.of<AuthNotifier>(context);
+    AuthenticationController authNotifier = Provider.of<AuthenticationController>(context);
 
     return StreamBuilder<bool>(
       initialData: false,
@@ -123,15 +123,15 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin<S
                         ),
 
                         trailing: Switch(
-                          value: Provider.of<AppProvider>(context).theme == Constants.lightTheme
+                          value: Provider.of<LearnAFruitProvider>(context).theme == Constants.lightTheme
                               ? false
                               : true,
                           onChanged: (v) async{
                             if (v) {
-                              Provider.of<AppProvider>(context, listen: false)
+                              Provider.of<LearnAFruitProvider>(context, listen: false)
                                   .setTheme(Constants.darkTheme, "dark");
                             } else {
-                              Provider.of<AppProvider>(context, listen: false)
+                              Provider.of<LearnAFruitProvider>(context, listen: false)
                                   .setTheme(Constants.lightTheme, "light");
                             }
                           },

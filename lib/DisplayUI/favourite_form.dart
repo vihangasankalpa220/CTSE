@@ -1,53 +1,49 @@
 import 'dart:io';
 
-import 'package:finalproject/api/fruit_api.dart';
-import 'package:finalproject/model/user.dart';
-import 'package:finalproject/notifier/auth_notifier.dart';
-import 'package:finalproject/notifier/fruit_notifier.dart';
-import 'package:finalproject/providers/app_provider.dart';
-import 'package:finalproject/util/const.dart';
+import 'package:finalproject/LearnAFruit_Api/Fruit_Api_Handler.dart';
+import 'package:finalproject/Crudmodel/FruitCrudModel.dart';
+import 'package:finalproject/CrudControllers/Fruit_Controller.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-
 import 'package:provider/provider.dart';
 
-import 'main_screen.dart';
-class Profile extends StatefulWidget {
+class FavouriteForm extends StatefulWidget {
   final bool isUpdating;
 
-  Profile({@required this.isUpdating});
+  FavouriteForm({@required this.isUpdating});
 
   @override
-  _ProfileState createState() => _ProfileState();
+  _FavouriteFormState createState() => _FavouriteFormState();
 }
 
-class _ProfileState extends State<Profile> {
+class _FavouriteFormState extends State<FavouriteForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  User _currentUser;
-  String displayName;
-  File _imageFile;
+  List _countries = [];
+  FruitCrudModel _currentFruit;
   String _imageUrl;
+  File _imageFile;
+  TextEditingController countriesController = new TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    FruitNotifier fruitNotifier = Provider.of<FruitNotifier>(context, listen: false);
+    FruitController fruitNotifier = Provider.of<FruitController>(context, listen: false);
 
-    if (fruitNotifier.currentUser != null) {
-      _currentUser = fruitNotifier.currentUser;
+    if (fruitNotifier.currentFruit != null) {
+      _currentFruit = fruitNotifier.currentFruit;
     } else {
-      _currentUser = User();
+      _currentFruit = FruitCrudModel();
     }
 
-
-    _imageUrl = _currentUser.image;
+    _countries.addAll(_currentFruit.countries);
+    _imageUrl = _currentFruit.image;
   }
 
   _showImage() {
     if (_imageFile == null && _imageUrl == null) {
-      return Text(" ");
+      return Text("image placeholder");
     } else if (_imageFile != null) {
       print('showing image from local file');
 
@@ -77,10 +73,10 @@ class _ProfileState extends State<Profile> {
         alignment: AlignmentDirectional.bottomCenter,
         children: <Widget>[
           Image.network(
-            "https://images.unsplash.com/photo-1502164980785-f8aa41d53611?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
+            _imageUrl,
             width: MediaQuery.of(context).size.width,
-            fit: BoxFit.cover,
-            height: 250,
+            fit: BoxFit.fill,
+            height: 200,
           ),
           FlatButton(
             padding: EdgeInsets.all(16),
@@ -98,7 +94,7 @@ class _ProfileState extends State<Profile> {
 
   _getLocalImage() async {
     File imageFile =
-    await ImagePicker.pickImage(source: ImageSource.gallery, imageQuality: 50, maxWidth: 400);
+    await ImagePicker.pickImage(source: ImageSource.gallery, imageQuality: 100, maxWidth: 400);
 
     if (imageFile != null) {
       setState(() {
@@ -108,10 +104,9 @@ class _ProfileState extends State<Profile> {
   }
 
   Widget _buildNameField() {
-    AuthNotifier authNotifier = Provider.of<AuthNotifier>(context);
     return TextFormField(
-      decoration: InputDecoration(labelText: 'User Name'),
-      initialValue:  authNotifier.user != null ?  authNotifier.user.displayName : "Feed",
+      decoration: InputDecoration(labelText: 'Fruit Name'),
+      initialValue: _currentFruit.name,
       keyboardType: TextInputType.text,
       style: TextStyle(fontSize: 20),
       validator: (String value) {
@@ -119,46 +114,70 @@ class _ProfileState extends State<Profile> {
           return 'Name is required';
         }
 
+        if (value.length < 3 || value.length > 20) {
+          return 'Name must be more than 3 and less than 20';
+        }
+
         return null;
       },
       onSaved: (String value) {
-        _currentUser.displayName = value;
+        _currentFruit.name = value;
       },
     );
   }
 
   Widget _buildCategoryField() {
-    AuthNotifier authNotifier = Provider.of<AuthNotifier>(context);
     return TextFormField(
-      decoration: InputDecoration(labelText: 'Email'),
-      initialValue: authNotifier.user != null ?  authNotifier.user.email : "Null",
+      decoration: InputDecoration(labelText: 'Fruit Category'),
+      initialValue: _currentFruit.category,
       keyboardType: TextInputType.text,
       style: TextStyle(fontSize: 20),
       validator: (String value) {
         if (value.isEmpty) {
-          return 'Email is required';
+          return 'Category is required';
         }
 
         if (value.length < 3 || value.length > 20) {
-          return 'Email must be more than 3 and less than 20';
+          return 'Category must be more than 3 and less than 20';
         }
 
         return null;
       },
       onSaved: (String value) {
-        _currentUser.email = value;
+        _currentFruit.category = value;
       },
     );
   }
 
-  _onUserUploaded(User user) {
-    FruitNotifier fruitNotifier = Provider.of<FruitNotifier>(context, listen: false);
-    fruitNotifier.addUser(user);
+  _buildCountryField() {
+    return SizedBox(
+      width: 200,
+      child: TextField(
+        controller: countriesController,
+        keyboardType: TextInputType.text,
+        decoration: InputDecoration(labelText: 'Features'),
+        style: TextStyle(fontSize: 20),
+      ),
+    );
+  }
+
+  _onFruitUploaded(FruitCrudModel fruit) {
+    FruitController fruitNotifier = Provider.of<FruitController>(context, listen: false);
+    fruitNotifier.addFruit(fruit);
     Navigator.pop(context);
   }
 
-  _saveUser() {
-    print('saveUser Called');
+  _addCountry(String text) {
+    if (text.isNotEmpty) {
+      setState(() {
+        _countries.add(text);
+      });
+      countriesController.clear();
+    }
+  }
+
+  _saveFavouriteFruit() {
+    print('saveFruit Called');
     if (!_formKey.currentState.validate()) {
       return;
     }
@@ -167,10 +186,13 @@ class _ProfileState extends State<Profile> {
 
     print('form saved');
 
-    uploadUserAndImage(_currentUser, widget.isUpdating, _imageFile, _onUserUploaded);
+    _currentFruit.countries = _countries;
 
-    print("displayName: ${_currentUser.displayName}");
-    print("email: ${_currentUser.email}");
+    uploadFavouriteFruitAndImage(_currentFruit, widget.isUpdating, _imageFile, _onFruitUploaded);
+
+    print("name: ${_currentFruit.name}");
+    print("category: ${_currentFruit.category}");
+    print("Countries: ${_currentFruit.countries.toString()}");
     print("_imageFile ${_imageFile.toString()}");
     print("_imageUrl $_imageUrl");
   }
@@ -179,16 +201,7 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      appBar: AppBar(
-          leading: IconButton(
-            icon: Icon(
-              Icons.keyboard_backspace,
-            ),
-            onPressed: ()=>  Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
-              return MainScreen();
-            })),
-          ),
-          title: Text('Profile')),
+      appBar: AppBar(title: Text('Favourite Fruit Form')),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(32),
         child: Form(
@@ -198,7 +211,7 @@ class _ProfileState extends State<Profile> {
             _showImage(),
             SizedBox(height: 16),
             Text(
-              widget.isUpdating ? "Edit User" : "Create User Photo",
+              widget.isUpdating ? "Add Favourite Fruit" : "Create Fruit",
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 30),
             ),
@@ -219,53 +232,52 @@ class _ProfileState extends State<Profile> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-
+                _buildCountryField(),
+                ButtonTheme(
+                  child: RaisedButton(
+                    child: Text('Add', style: TextStyle(color: Colors.white)),
+                    onPressed: () => _addCountry(countriesController.text),
+                  ),
+                )
               ],
             ),
             SizedBox(height: 16),
-
-            ListTile(
-              title: Text(
-                "Dark Mode",
-                style: TextStyle(
-                  fontSize: 17,
-                  fontWeight: FontWeight.w700,
+            GridView.count(
+              shrinkWrap: true,
+              scrollDirection: Axis.vertical,
+              padding: EdgeInsets.all(8),
+              crossAxisCount: 3,
+              crossAxisSpacing: 4,
+              mainAxisSpacing: 4,
+              children: _countries
+                  .map(
+                    (ingredient) => Card(
+                  color: Colors.black54,
+                  child: Center(
+                    child: Text(
+                      ingredient,
+                      style: TextStyle(color: Colors.white, fontSize: 14),
+                    ),
+                  ),
                 ),
-              ),
-
-              trailing: Switch(
-                value: Provider.of<AppProvider>(context).theme == Constants.lightTheme
-                    ? false
-                    : true,
-                onChanged: (v) async{
-                  if (v) {
-                    Provider.of<AppProvider>(context, listen: false)
-                        .setTheme(Constants.darkTheme, "dark");
-                  } else {
-                    Provider.of<AppProvider>(context, listen: false)
-                        .setTheme(Constants.lightTheme, "light");
-                  }
-                },
-                activeColor: Theme.of(context).accentColor,
-              ),
-            ),
+              )
+                  .toList(),
+            )
           ]),
         ),
       ),
-
-
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           FocusScope.of(context).requestFocus(new FocusNode());
-          _saveUser();
+          _saveFavouriteFruit();
         },
         child: Icon(Icons.save),
+        backgroundColor: Colors.pink,
         foregroundColor: Colors.white,
       ),
-    );
 
+
+
+    );
   }
 }
-
-
-

@@ -1,42 +1,43 @@
 
-import 'package:finalproject/api/fruit_api.dart';
-import 'package:finalproject/model/fruit.dart';
-import 'package:finalproject/notifier/fruit_notifier.dart';
+import 'package:finalproject/LearnAFruit_Api/Fruit_Api_Handler.dart';
+import 'package:finalproject/Crudmodel/FruitCrudModel.dart';
+import 'package:finalproject/CrudControllers/Fruit_Controller.dart';
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 import 'dart:io';
+import 'favourite_form.dart';
+import 'fruit_form.dart';
 
-
-class FavouriteDetails extends StatelessWidget {
+class FruitDetail extends StatelessWidget {
   final bool isUpdating;
-  FavouriteDetails({@required this.isUpdating});
+  FruitDetail({@required this.isUpdating});
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   List _countries = [];
-  Fruit _currentFruit;
+  FruitCrudModel _currentFruit;
   String _imageUrl;
   File _imageFile;
   TextEditingController countriesController = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    FruitNotifier fruitNotifier = Provider.of<FruitNotifier>(context);
+    FruitController fruitNotifier = Provider.of<FruitController>(context);
 
-    _onFruitDeleted(Fruit fruit) {
+    _onFruitDeleted(FruitCrudModel fruit) {
       Navigator.pop(context);
-      fruitNotifier.deleteFavouriteFruit(fruit);
+      fruitNotifier.deleteFruit(fruit);
     }
 
-    _onFruitUploaded(Fruit fruit) {
-      FruitNotifier fruitNotifier = Provider.of<FruitNotifier>(context, listen: false);
+    _onFruitUploaded(FruitCrudModel fruit) {
+      FruitController fruitNotifier = Provider.of<FruitController>(context, listen: false);
       fruitNotifier.addFruit(fruit);
       Navigator.pop(context);
     }
 
-    _onFavouriteFruitUploaded(Fruit fruit) {
-      FruitNotifier fruitNotifier = Provider.of<FruitNotifier>(context, listen: false);
+    _onFavouriteFruitUploaded(FruitCrudModel fruit) {
+      FruitController fruitNotifier = Provider.of<FruitController>(context, listen: false);
       fruitNotifier.addFruit(fruit);
       Navigator.pop(context);
     }
@@ -149,15 +150,15 @@ class FavouriteDetails extends StatelessWidget {
                   children: fruitNotifier.currentFruit.countries
                       .map(
                         (ingredient) => Card(
-                      color: Colors.black54,
-                      child: Center(
-                        child: Text(
-                          ingredient,
-                          style: TextStyle(color: Colors.white, fontSize: 16),
+                          color: Colors.black54,
+                          child: Center(
+                            child: Text(
+                              ingredient,
+                              style: TextStyle(color: Colors.white, fontSize: 16),
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                  )
+                      )
                       .toList(),
                 )
               ],
@@ -168,7 +169,37 @@ class FavouriteDetails extends StatelessWidget {
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
-
+          FloatingActionButton(
+            heroTag: 'button0',
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (BuildContext context) {
+                  return FavouriteForm(
+                    isUpdating: true,
+                  );
+                }),
+              );
+            },
+            child: Icon(Icons.favorite),
+            backgroundColor: Colors.deepPurple,
+            foregroundColor: Colors.white,
+          ),
+          SizedBox(height: 20),
+          FloatingActionButton(
+            heroTag: 'button1',
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (BuildContext context) {
+                  return FruitForm(
+                    isUpdating: true,
+                  );
+                }),
+              );
+            },
+            child: Icon(Icons.edit),
+            backgroundColor: Colors.blue,
+            foregroundColor: Colors.white,
+          ),
           SizedBox(height: 20),
           FloatingActionButton(
             heroTag: 'button2',

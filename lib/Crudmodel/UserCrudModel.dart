@@ -1,15 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class User {
+class UserCrudModel {
   String displayName;
   String email;
   String password;
   String image;
   Timestamp createdAt;
   Timestamp updatedAt;
-  User();
+  UserCrudModel();
 
-  User.fromMap(Map<String, dynamic> data) {
+  UserCrudModel.fromMap(Map<String, dynamic> data) {
     displayName = data['displayName'];
     email = data['email'];
     image = data['image'];

@@ -1,8 +1,8 @@
 import 'dart:io';
 
-import 'package:finalproject/api/fruit_api.dart';
-import 'package:finalproject/notifier/auth_notifier.dart';
-import 'package:finalproject/notifier/fruit_notifier.dart';
+import 'package:finalproject/LearnAFruit_Api/Fruit_Api_Handler.dart';
+import 'package:finalproject/CrudControllers/authentication_Controller.dart';
+import 'package:finalproject/CrudControllers/Fruit_Controller.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -11,16 +11,16 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:provider/provider.dart';
 
 import 'FruitBook.dart';
-import 'login.dart';
+import 'LoginPageDisplay.dart';
 
 
 
-class Home extends StatefulWidget {
+class HomeScreenUI extends StatefulWidget {
   @override
-  _HomeState createState() => _HomeState();
+  _HomeScreenUIState createState() => _HomeScreenUIState();
 }
 
-class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home>{
+class _HomeScreenUIState extends State<HomeScreenUI> with AutomaticKeepAliveClientMixin<HomeScreenUI>{
 
   List<T> map<T>(List list, Function handler) {
     List<T> result = [];
@@ -64,24 +64,10 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home>{
       });
     }
 
-    // Future uploadPicture(BuildContext context) async{
-    //   String fileName = basename(_image.path);
-    //   StorageReference firebaseStorageRef = FirebaseStorage.instance.ref().child(fileName);
-    //   StorageUploadTask uploadTask = firebaseStorageRef.putFile(_image);
-    //   await uploadTask.onComplete;
-    //   print("Fruit Added!");
-    //   firebaseStorageRef.getDownloadURL().then((fileURL){
-    //     setState(() {
-    //     _uploadedFileURL = fileURL;
-    //       // Scaffold.of(context).showSnackBar(SnackBar(content: Text('Fruit Added!')));
-    //       Scaffold.of(context).showSnackBar(new SnackBar(content: new Text("Fruit Uploaded"),
-    //       ));
-    //     });
-    //   });
-    // }
 
-    AuthNotifier authNotifier = Provider.of<AuthNotifier>(context);
-    FruitNotifier fruitNotifier = Provider.of<FruitNotifier>(context);
+
+    AuthenticationController authNotifier = Provider.of<AuthenticationController>(context);
+    FruitController fruitNotifier = Provider.of<FruitController>(context);
 
     Future<void> _refreshList() async {
       getFruits(fruitNotifier);
@@ -119,7 +105,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home>{
                       MaterialPageRoute(
                         builder: (BuildContext context){
                           signout(authNotifier);
-                          return Login();
+                          return LoginPageDisplayUI();
                         },
                       ),
                     );
@@ -230,64 +216,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home>{
               ],
             ),
             SizedBox(height: 20.0),
-//             Row(
-//               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//               children: <Widget>[
-//                 Text(
-//                   "Fruits",
-//                   style: TextStyle(
-//                     fontSize: 23,
-//                     fontWeight: FontWeight.w800,
-//                   ),
-//                 ),
-//                 FlatButton(
-//                   child: Text(
-//                     "View More",
-//                     style: TextStyle(
-// //                      fontSize: 22,
-// //                      fontWeight: FontWeight.w800,
-//                       color: Theme.of(context).accentColor,
-//                     ),
-//                   ),
-//                   onPressed: (){
-//                     Navigator.of(context).push(
-//                       MaterialPageRoute(
-//                         builder: (BuildContext context){
-//                           return DishesScreen();
-//                         },
-//                       ),
-//                     );
-//                   },
-//                 ),
-//               ],
-//             ),
             SizedBox(height: 10.0),
-
-//             GridView.builder(
-//               shrinkWrap: true,
-//               primary: false,
-//               physics: NeverScrollableScrollPhysics(),
-//               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-//                 crossAxisCount: 2,
-//                 childAspectRatio: MediaQuery.of(context).size.width /
-//                     (MediaQuery.of(context).size.height / 1.25),
-//               ),
-//               itemCount: fruits == null ? 0 :fruits.length,
-//               itemBuilder: (BuildContext context, int index) {
-// //                Food food = Food.fromJson(foods[index]);
-//                 Map food = fruits[index];
-// //                print(foods);
-// //                print(foods.length);
-//                 return GridProduct(
-//                   img: food['img'],
-//                   isFav: false,
-//                   name: food['name'],
-//                   rating: 5.0,
-//                   raters: 23,
-//                 );
-//               },
-//             ),
-
             SizedBox(height: 30),
 
           ],

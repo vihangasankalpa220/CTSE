@@ -1,5 +1,5 @@
-import 'package:finalproject/providers/app_provider.dart';
-import 'package:finalproject/util/const.dart';
+import 'package:finalproject/LearnAFruitproviders/LearnAFruit_provider.dart';
+import 'package:finalproject/LearnAFruitUtilities/constColourAttributer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -152,15 +152,15 @@ class _FruitDetailState extends State<FruitDetail> {
               ),
 
               trailing: Switch(
-                value: Provider.of<AppProvider>(context).theme == Constants.lightTheme
+                value: Provider.of<LearnAFruitProvider>(context).theme == Constants.lightTheme
                     ? false
                     : true,
                 onChanged: (v) async{
                   if (v) {
-                    Provider.of<AppProvider>(context, listen: false)
+                    Provider.of<LearnAFruitProvider>(context, listen: false)
                         .setTheme(Constants.darkTheme, "dark");
                   } else {
-                    Provider.of<AppProvider>(context, listen: false)
+                    Provider.of<LearnAFruitProvider>(context, listen: false)
                         .setTheme(Constants.lightTheme, "light");
                   }
                 },

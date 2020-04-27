@@ -1,9 +1,9 @@
 import 'dart:io';
 
 
-import 'package:finalproject/api/fruit_api.dart';
-import 'package:finalproject/model/fruit.dart';
-import 'package:finalproject/notifier/fruit_notifier.dart';
+import 'package:finalproject/LearnAFruit_Api/Fruit_Api_Handler.dart';
+import 'package:finalproject/Crudmodel/FruitCrudModel.dart';
+import 'package:finalproject/CrudControllers/Fruit_Controller.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -22,7 +22,7 @@ class _FruitFormState extends State<FruitForm> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   List _countries = [];
-  Fruit _currentFruit;
+  FruitCrudModel _currentFruit;
   String _imageUrl;
   File _imageFile;
   TextEditingController countriesController = new TextEditingController();
@@ -30,12 +30,12 @@ class _FruitFormState extends State<FruitForm> {
   @override
   void initState() {
     super.initState();
-    FruitNotifier fruitNotifier = Provider.of<FruitNotifier>(context, listen: false);
+    FruitController fruitNotifier = Provider.of<FruitController>(context, listen: false);
 
     if (fruitNotifier.currentFruit != null) {
       _currentFruit = fruitNotifier.currentFruit;
     } else {
-      _currentFruit = Fruit();
+      _currentFruit = FruitCrudModel();
     }
 
     _countries.addAll(_currentFruit.countries);
@@ -174,8 +174,8 @@ class _FruitFormState extends State<FruitForm> {
     );
   }
 
-  _onFruitUploaded(Fruit fruit) {
-    FruitNotifier fruitNotifier = Provider.of<FruitNotifier>(context, listen: false);
+  _onFruitUploaded(FruitCrudModel fruit) {
+    FruitController fruitNotifier = Provider.of<FruitController>(context, listen: false);
     fruitNotifier.addFruit(fruit);
     Navigator.pop(context);
   }

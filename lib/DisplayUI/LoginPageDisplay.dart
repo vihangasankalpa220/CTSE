@@ -2,29 +2,29 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../api/fruit_api.dart';
-import '../model/user.dart';
-import '../notifier/auth_notifier.dart';
+import 'package:finalproject/LearnAFruit_Api/Fruit_Api_Handler.dart';
+import '../Crudmodel/UserCrudModel.dart';
+import '../CrudControllers/authentication_Controller.dart';
 
 enum AuthMode { Signup, Login }
 
-class Login extends StatefulWidget {
+class LoginPageDisplayUI extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _LoginState();
+    return _LoginPageDisplayUIState();
   }
 }
 
-class _LoginState extends State<Login> {
+class _LoginPageDisplayUIState extends State<LoginPageDisplayUI> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _passwordController = new TextEditingController();
   AuthMode _authMode = AuthMode.Login;
 
-  User _user = User();
+  UserCrudModel _user = UserCrudModel();
 
   @override
   void initState() {
-    AuthNotifier authNotifier = Provider.of<AuthNotifier>(context, listen: false);
+    AuthenticationController authNotifier = Provider.of<AuthenticationController>(context, listen: false);
     initializeCurrentUser(authNotifier);
     super.initState();
   }
@@ -36,7 +36,7 @@ class _LoginState extends State<Login> {
 
     _formKey.currentState.save();
 
-    AuthNotifier authNotifier = Provider.of<AuthNotifier>(context, listen: false);
+    AuthenticationController authNotifier = Provider.of<AuthenticationController>(context, listen: false);
 
     if (_authMode == AuthMode.Login) {
       login(_user, authNotifier);

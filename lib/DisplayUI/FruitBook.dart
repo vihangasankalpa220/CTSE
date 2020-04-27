@@ -1,73 +1,51 @@
-import 'package:finalproject/api/fruit_api.dart';
-import 'package:finalproject/notifier/auth_notifier.dart';
-import 'package:finalproject/notifier/fruit_notifier.dart';
-import 'package:finalproject/screens/detail.dart';
+
+import 'package:finalproject/LearnAFruit_Api/Fruit_Api_Handler.dart';
+import 'package:finalproject/CrudControllers/authentication_Controller.dart';
+import 'package:finalproject/CrudControllers/Fruit_Controller.dart';
 import 'package:flutter/material.dart';
-
 import 'package:provider/provider.dart';
-
-import 'FavouriteDetails.dart';
+import 'detail.dart';
 import 'details.dart';
-import 'login.dart';
-import 'main_screen.dart';
+import 'fruit_form.dart';
 
 
-
-class FavoriteScreen extends StatefulWidget {
+class FruitBook extends StatefulWidget {
   @override
-  _FavouriteFruitBookState createState() => _FavouriteFruitBookState();
+  _FruitBookState createState() => _FruitBookState();
 }
 
 
-class _FavouriteFruitBookState extends State<FavoriteScreen> {
+class _FruitBookState extends State<FruitBook> {
 
   @override
   void initState() {
-    FruitNotifier fruitNotifier = Provider.of<FruitNotifier>(context, listen: false);
-    getFavouriteFruits(fruitNotifier);
+    FruitController fruitNotifier = Provider.of<FruitController>(context, listen: false);
+    getFruits(fruitNotifier);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    AuthNotifier authNotifier = Provider.of<AuthNotifier>(context);
-    FruitNotifier fruitNotifier = Provider.of<FruitNotifier>(context);
+    AuthenticationController authNotifier = Provider.of<AuthenticationController>(context);
+    FruitController fruitNotifier = Provider.of<FruitController>(context);
 
     Future<void> _refreshList() async {
-      getFavouriteFruits(fruitNotifier);
+      getFruits(fruitNotifier);
     }
 
-    print("Opening Favourite Fruit Book");
+    print("Opening Fruit Book");
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(
-            Icons.keyboard_backspace,
-          ),
-          onPressed: ()=>  Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
-            return MainScreen();
-          })),
-        ),
         title: Text(
-          authNotifier.user != null ? authNotifier.user.displayName : "Favourite Fruit Book",
+          authNotifier.user != null ? authNotifier.user.displayName + "'s Fruit Collection" : "Favourite Fruit Book",
         ),
         actions: <Widget>[
           // action button
           FlatButton(
-            onPressed: (){
-              //  => signout(authNotifier),
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (BuildContext context){
-                    authNotifier.setUser(null);
-                    return Login();
-                  },
-                ),
-              );
-            },
+            onPressed: () => signout(authNotifier),
             child: Text(
               "Logout",
-              style: TextStyle(fontSize: 22, color: Colors.lightBlue),
+              style: TextStyle(fontSize: 20, color: Colors.blue),
             ),
           ),
         ],
@@ -79,12 +57,12 @@ class _FavouriteFruitBookState extends State<FavoriteScreen> {
               leading: CircleAvatar(
                 radius: 25.0,
                 child: Image.network(
-                  fruitNotifier.fruitList[index].image != null
-                      ? fruitNotifier.fruitList[index].image
-                      : 'https://www.testingxperts.com/wp-content/uploads/2019/02/placeholder-img.jpg',
-                  width: 150,height: 1000,
-                  fit: BoxFit.fill,
-                ),
+                fruitNotifier.fruitList[index].image != null
+                    ? fruitNotifier.fruitList[index].image
+                    : 'https://www.testingxperts.com/wp-content/uploads/2019/02/placeholder-img.jpg',
+                width: 150,height: 1000,
+                fit: BoxFit.fill,
+              ),
               ),
 
               title: Text(fruitNotifier.fruitList[index].name),
@@ -92,7 +70,7 @@ class _FavouriteFruitBookState extends State<FavoriteScreen> {
               onTap: () {
                 fruitNotifier.currentFruit = fruitNotifier.fruitList[index];
                 Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
-                  return FavouriteDetails();
+                  return FruitDetail();
                 }));
               },
 
@@ -123,7 +101,7 @@ class _FavouriteFruitBookState extends State<FavoriteScreen> {
                           child: Padding(
                             padding: EdgeInsets.all(5),
                             child: Icon(
-                              Icons.favorite,
+                                  Icons.favorite,
                               color: Colors.red,
                               size: 17,
                             ),
@@ -162,7 +140,7 @@ class _FavouriteFruitBookState extends State<FavoriteScreen> {
         onRefresh: _refreshList,
       ),
 
-     /* floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton(
         onPressed: () {
           fruitNotifier.currentFruit = null;
           Navigator.of(context).push(
@@ -175,7 +153,7 @@ class _FavouriteFruitBookState extends State<FavoriteScreen> {
         },
         child: Icon(Icons.add),
         foregroundColor: Colors.white,
-      ),*/
+      ),
     );
   }
 }

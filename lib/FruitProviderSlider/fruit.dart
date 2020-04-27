@@ -1,12 +1,12 @@
-class Fruit {
+class FruitSliderModel {
   String img;
   String name;
 
-  Fruit(
+  FruitSliderModel(
       {this.img,
         this.name});
 
-  Fruit.fromJson(Map<String, dynamic> json) {
+  FruitSliderModel.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     img = json['img'];
   }

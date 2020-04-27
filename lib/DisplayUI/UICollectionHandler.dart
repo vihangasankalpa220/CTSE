@@ -1,22 +1,22 @@
-import 'package:finalproject/screens/profile.dart';
-import 'package:finalproject/util/const.dart';
-import 'package:finalproject/widgets/SideBarMain.dart';
-import 'package:finalproject/widgets/sidecomponents.dart';
+import 'package:finalproject/DisplayUI/ProfilePageDisplay.dart';
+import 'package:finalproject/LearnAFruitUtilities/constColourAttributer.dart';
+import 'package:finalproject/LearnAFruit_widgets/SideBarMain.dart';
+import 'package:finalproject/LearnAFruit_widgets/sidecomponents.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'favorite_screen.dart';
-import 'home.dart';
+import 'MainPageDisplay.dart';
 
 
 
 
-class MainScreen extends StatefulWidget {
+class UICollectionHandler extends StatefulWidget {
   @override
-  _MainScreenState createState() => _MainScreenState();
+  _UICollectionHandlerState createState() => _UICollectionHandlerState();
 }
 
-class _MainScreenState extends State<MainScreen> with NavigationStates {
+class _UICollectionHandlerState extends State<UICollectionHandler> with NavigationStates {
   PageController _pageController;
   int _page = 0;
 
@@ -41,9 +41,9 @@ class _MainScreenState extends State<MainScreen> with NavigationStates {
           controller: _pageController,
           onPageChanged: onPageChanged,
           children: <Widget>[
-            Home(),
+            HomeScreenUI(),
             FavoriteScreen(),
-            Profile(isUpdating: false),
+            ProfileUI(isUpdating: false),
             SideBarLayout(),
           ],
         ),

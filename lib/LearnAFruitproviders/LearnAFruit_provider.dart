@@ -1,12 +1,12 @@
-import 'package:finalproject/util/const.dart';
+import 'package:finalproject/LearnAFruitUtilities/constColourAttributer.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
-class AppProvider extends ChangeNotifier{
-  AppProvider(){
+class LearnAFruitProvider extends ChangeNotifier{
+  LearnAFruitProvider(){
     checkTheme();
   }
 

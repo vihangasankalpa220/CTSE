@@ -1,17 +1,17 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:finalproject/model/fruit.dart';
-import 'package:finalproject/model/user.dart';
-import 'package:finalproject/notifier/auth_notifier.dart';
-import 'package:finalproject/notifier/fruit_notifier.dart';
+import 'package:finalproject/Crudmodel/FruitCrudModel.dart';
+import 'package:finalproject/Crudmodel/UserCrudModel.dart';
+import 'package:finalproject/CrudControllers/authentication_Controller.dart';
+import 'package:finalproject/CrudControllers/Fruit_Controller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path/path.dart' as path;
 import 'package:uuid/uuid.dart';
 
 
-login(User user, AuthNotifier authNotifier) async {
+login(UserCrudModel user, AuthenticationController authNotifier) async {
   AuthResult authResult = await FirebaseAuth.instance
       .signInWithEmailAndPassword(email: user.email, password: user.password)
       .catchError((error) => print(error.code));
@@ -26,7 +26,7 @@ login(User user, AuthNotifier authNotifier) async {
   }
 }
 
-signup(User user, AuthNotifier authNotifier) async {
+signup(UserCrudModel user, AuthenticationController authNotifier) async {
   AuthResult authResult = await FirebaseAuth.instance
       .createUserWithEmailAndPassword(email: user.email, password: user.password)
       .catchError((error) => print(error.code));
@@ -50,13 +50,13 @@ signup(User user, AuthNotifier authNotifier) async {
   }
 }
 
-signout(AuthNotifier authNotifier) async {
+signout(AuthenticationController authNotifier) async {
   await FirebaseAuth.instance.signOut().catchError((error) => print(error.code));
 
   authNotifier.setUser(null);
 }
 
-initializeCurrentUser(AuthNotifier authNotifier) async {
+initializeCurrentUser(AuthenticationController authNotifier) async {
   FirebaseUser firebaseUser = await FirebaseAuth.instance.currentUser();
 
   if (firebaseUser != null) {
@@ -65,16 +65,16 @@ initializeCurrentUser(AuthNotifier authNotifier) async {
   }
 }
 
-getFruits(FruitNotifier fruitNotifier) async {
+getFruits(FruitController fruitNotifier) async {
   QuerySnapshot snapshot = await Firestore.instance
       .collection('Fruits')
       .orderBy("createdAt", descending: true)
       .getDocuments();
 
-  List<Fruit> _fruitList = [];
+  List<FruitCrudModel> _fruitList = [];
 
   snapshot.documents.forEach((document) {
-    Fruit fruit = Fruit.fromMap(document.data);
+    FruitCrudModel fruit = FruitCrudModel.fromMap(document.data);
     _fruitList.add(fruit);
   });
 
@@ -82,16 +82,16 @@ getFruits(FruitNotifier fruitNotifier) async {
 }
 
 
-getFavouriteFruits(FruitNotifier fruitNotifier) async {
+getFavouriteFruits(FruitController fruitNotifier) async {
   QuerySnapshot snapshot = await Firestore.instance
       .collection('FFruits')
       .orderBy("createdAt", descending: true)
       .getDocuments();
 
-  List<Fruit> _fruitList = [];
+  List<FruitCrudModel> _fruitList = [];
 
   snapshot.documents.forEach((document) {
-    Fruit fruit = Fruit.fromMap(document.data);
+    FruitCrudModel fruit = FruitCrudModel.fromMap(document.data);
     _fruitList.add(fruit);
   });
 
@@ -99,7 +99,7 @@ getFavouriteFruits(FruitNotifier fruitNotifier) async {
 }
 
 
-uploadFruitAndImage(Fruit fruit, bool isUpdating, File localFile, Function fruitUploaded) async {
+uploadFruitAndImage(FruitCrudModel fruit, bool isUpdating, File localFile, Function fruitUploaded) async {
   if (localFile != null) {
     print("uploading image");
 
@@ -125,7 +125,7 @@ uploadFruitAndImage(Fruit fruit, bool isUpdating, File localFile, Function fruit
   }
 }
 
-_uploadFruit(Fruit fruit, bool isUpdating, Function fruitUploaded, {String imageUrl}) async {
+_uploadFruit(FruitCrudModel fruit, bool isUpdating, Function fruitUploaded, {String imageUrl}) async {
   CollectionReference fruitRef = Firestore.instance.collection('Fruits');
 
   if (imageUrl != null) {
@@ -155,7 +155,7 @@ _uploadFruit(Fruit fruit, bool isUpdating, Function fruitUploaded, {String image
 }
 
 
-uploadFavouriteFruitAndImage(Fruit fruit, bool isUpdating, File localFile, Function fruitUploaded) async {
+uploadFavouriteFruitAndImage(FruitCrudModel fruit, bool isUpdating, File localFile, Function fruitUploaded) async {
   if (localFile != null) {
    print("uploading image");
 
@@ -181,7 +181,7 @@ uploadFavouriteFruitAndImage(Fruit fruit, bool isUpdating, File localFile, Funct
   }
 }
 
-_uploadFavouriteFruit(Fruit fruit, bool isUpdating, Function fruitUploaded, {String imageUrl}) async {
+_uploadFavouriteFruit(FruitCrudModel fruit, bool isUpdating, Function fruitUploaded, {String imageUrl}) async {
   CollectionReference fruitRef = Firestore.instance.collection('FFruits');
 
   if (imageUrl != null) {
@@ -218,7 +218,7 @@ _uploadFavouriteFruit(Fruit fruit, bool isUpdating, Function fruitUploaded, {Str
 
 
 
-deleteFruit(Fruit fruit, Function fruitDeleted) async {
+deleteFruit(FruitCrudModel fruit, Function fruitDeleted) async {
   if (fruit.image != null) {
     StorageReference storageReference =
         await FirebaseStorage.instance.getReferenceFromUrl(fruit.image);
@@ -234,7 +234,7 @@ deleteFruit(Fruit fruit, Function fruitDeleted) async {
   fruitDeleted(fruit);
 }
 
-deleteFavouriteFruit(Fruit fruit, Function fruitDeleted) async {
+deleteFavouriteFruit(FruitCrudModel fruit, Function fruitDeleted) async {
  if (fruit.image != null) {
     StorageReference storageReference =
     await FirebaseStorage.instance.getReferenceFromUrl(fruit.image);
@@ -251,7 +251,7 @@ deleteFavouriteFruit(Fruit fruit, Function fruitDeleted) async {
 }
 
 
-uploadUserAndImage(User user, bool isUpdating, File localFile, Function userUploaded) async {
+uploadUserAndImage(UserCrudModel user, bool isUpdating, File localFile, Function userUploaded) async {
   if (localFile != null) {
     print("uploading image");
 
@@ -277,7 +277,7 @@ uploadUserAndImage(User user, bool isUpdating, File localFile, Function userUplo
   }
 }
 
-_uploadUser(User user, bool isUpdating, Function userUploaded, {String imageUrl}) async {
+_uploadUser(UserCrudModel user, bool isUpdating, Function userUploaded, {String imageUrl}) async {
   CollectionReference userRef = Firestore.instance.collection('Users');
 
   if (imageUrl != null) {

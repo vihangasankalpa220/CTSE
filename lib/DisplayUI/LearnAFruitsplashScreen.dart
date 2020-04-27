@@ -2,8 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'login.dart';
-import 'main_screen.dart';
+import 'LoginPageDisplay.dart';
+import 'UICollectionHandler.dart';
 
 
 class LearnAFruitSplashScreen extends StatefulWidget {
@@ -21,7 +21,7 @@ class _LearnAFruitSplashScreen extends State<LearnAFruitSplashScreen> {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (BuildContext context){
-          return MainScreen();
+          return UICollectionHandler();
         },
       ),
     );

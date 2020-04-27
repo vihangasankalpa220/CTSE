@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Fruit {
+class FruitCrudModel {
   String id;
   String name;
   String category;
@@ -10,9 +10,9 @@ class Fruit {
   Timestamp updatedAt;
 
 
-  Fruit();
+  FruitCrudModel();
 
-  Fruit.fromMap(Map<String, dynamic> data) {
+  FruitCrudModel.fromMap(Map<String, dynamic> data) {
     id = data['id'];
     name = data['name'];
     category = data['category'];
