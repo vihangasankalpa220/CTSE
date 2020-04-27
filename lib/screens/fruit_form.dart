@@ -241,7 +241,7 @@ class _FruitFormState extends State<FruitForm> {
                         child: IconButton(
                           icon: Icon(
                             Icons.photo_camera,
-                            color: Colors.black,
+                            color: Colors.green,
                           ),
                           onPressed: () {
                             _openCamera();
@@ -256,7 +256,7 @@ class _FruitFormState extends State<FruitForm> {
                     child: IconButton(
                       icon: Icon(
                         Icons.photo_library,
-                        color: Colors.black,
+                        color: Colors.blue,
                       ),
                       onPressed: () {
                         _getLocalImage();
