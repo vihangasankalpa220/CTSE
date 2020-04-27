@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:finalproject/api/fruit_api.dart';
 import 'package:finalproject/model/user.dart';
 import 'package:finalproject/notifier/auth_notifier.dart';
 import 'package:finalproject/notifier/fruit_notifier.dart';
@@ -46,7 +47,7 @@ class _ProfileState extends State<Profile> {
 
   _showImage() {
     if (_imageFile == null && _imageUrl == null) {
-      return Text("image placeholder");
+      return Text(" ");
     } else if (_imageFile != null) {
       print('showing image from local file');
 
@@ -118,10 +119,6 @@ class _ProfileState extends State<Profile> {
           return 'Name is required';
         }
 
-        if (value.length < 3 || value.length > 20) {
-          return 'Name must be more than 3 and less than 20';
-        }
-
         return null;
       },
       onSaved: (String value) {
@@ -154,20 +151,29 @@ class _ProfileState extends State<Profile> {
     );
   }
 
-
-
-
-
   _onUserUploaded(User user) {
     FruitNotifier fruitNotifier = Provider.of<FruitNotifier>(context, listen: false);
     fruitNotifier.addUser(user);
     Navigator.pop(context);
   }
 
+  _saveUser() {
+    print('saveUser Called');
+    if (!_formKey.currentState.validate()) {
+      return;
+    }
 
+    _formKey.currentState.save();
 
+    print('form saved');
 
+    uploadUserAndImage(_currentUser, widget.isUpdating, _imageFile, _onUserUploaded);
 
+    print("displayName: ${_currentUser.displayName}");
+    print("email: ${_currentUser.email}");
+    print("_imageFile ${_imageFile.toString()}");
+    print("_imageUrl $_imageUrl");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -243,9 +249,6 @@ class _ProfileState extends State<Profile> {
                 activeColor: Theme.of(context).accentColor,
               ),
             ),
-
-
-
           ]),
         ),
       ),
@@ -254,16 +257,15 @@ class _ProfileState extends State<Profile> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           FocusScope.of(context).requestFocus(new FocusNode());
-          //   _saveUser();
+          _saveUser();
         },
         child: Icon(Icons.save),
         foregroundColor: Colors.white,
       ),
-
-
-
     );
 
   }
 }
+
+
 

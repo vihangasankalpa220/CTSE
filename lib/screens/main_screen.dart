@@ -1,7 +1,6 @@
 import 'package:finalproject/screens/profile.dart';
 import 'package:finalproject/util/const.dart';
 import 'package:finalproject/widgets/SideBarMain.dart';
-import 'package:finalproject/widgets/badge.dart';
 import 'package:finalproject/widgets/sidecomponents.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

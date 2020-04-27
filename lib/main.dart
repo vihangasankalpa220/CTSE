@@ -1,6 +1,6 @@
 import 'package:finalproject/providers/app_provider.dart';
 import 'package:finalproject/screens/login.dart';
-import 'package:finalproject/screens/splash.dart';
+import 'package:finalproject/screens/LearnAFruitsplashScreen.dart';
 import 'package:finalproject/util/const.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
           home://SplashScreen(),
           Consumer<AuthNotifier>(
            builder: (context, notifier, child) {
-            return notifier.user != null ? SplashScreen() : Login();
+            return notifier.user != null ? LearnAFruitSplashScreen() : Login();
 //SplashScreen();
             },
          ),

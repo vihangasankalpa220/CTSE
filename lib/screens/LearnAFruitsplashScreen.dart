@@ -6,12 +6,12 @@ import 'login.dart';
 import 'main_screen.dart';
 
 
-class SplashScreen extends StatefulWidget {
+class LearnAFruitSplashScreen extends StatefulWidget {
   @override
-  _SplashScreenState createState() => _SplashScreenState();
+  _LearnAFruitSplashScreen createState() => _LearnAFruitSplashScreen();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _LearnAFruitSplashScreen extends State<LearnAFruitSplashScreen> {
 
   startTimeout() {
     return  Timer(Duration(seconds: 10), changeScreen);
