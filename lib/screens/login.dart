@@ -1,10 +1,10 @@
 
-import 'package:finalproject/api/fruit_api.dart';
-import 'package:finalproject/model/user.dart';
-import 'package:finalproject/notifier/auth_notifier.dart';
 import 'package:flutter/material.dart';
-
 import 'package:provider/provider.dart';
+
+import '../api/fruit_api.dart';
+import '../model/user.dart';
+import '../notifier/auth_notifier.dart';
 
 enum AuthMode { Signup, Login }
 
@@ -118,7 +118,7 @@ class _LoginState extends State<Login> {
           return 'Password must be betweem 5 and 20 characters';
         }
 
-        return null;
+   //     return null;
       },
       onSaved: (String value) {
         _user.password = value;

@@ -104,6 +104,18 @@ class _FruitFormState extends State<FruitForm> {
     }
   }
 
+  _openCamera() async {
+    File imageFile =
+    await ImagePicker.pickImage(source: ImageSource.camera, imageQuality: 100, maxWidth: 400);
+
+    if (imageFile != null) {
+      setState(() {
+        _imageFile = imageFile;
+      });
+    }
+  }
+
+
   Widget _buildNameField() {
     return TextFormField(
       decoration: InputDecoration(labelText: 'Fruit Name'),
@@ -218,15 +230,41 @@ class _FruitFormState extends State<FruitForm> {
             ),
             SizedBox(height: 16),
             _imageFile == null && _imageUrl == null
-                ? ButtonTheme(
-                    child: RaisedButton(
-                      onPressed: () => _getLocalImage(),
-                      child: Text(
-                        'Add Image',
-                        style: TextStyle(color: Colors.white),
+                ? Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Container(
+                    child: Column(children: <Widget>[
+                      Align(alignment: Alignment.centerLeft,
+                        child: IconButton(
+                          icon: Icon(
+                            Icons.photo_camera,
+                            color: Colors.black,
+                          ),
+                          onPressed: () {
+                            _openCamera();
+                          },),
                       ),
-                    ),
-                  )
+                    ],),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Container(
+                    child: IconButton(
+                      icon: Icon(
+                        Icons.photo_library,
+                        color: Colors.black,
+                      ),
+                      onPressed: () {
+                        _getLocalImage();
+                      },),
+                  ),
+                )
+              ],
+            )
                 : SizedBox(height: 0),
             _buildNameField(),
             _buildCategoryField(),
@@ -236,9 +274,9 @@ class _FruitFormState extends State<FruitForm> {
                 _buildCountryField(),
                 ButtonTheme(
                   child: RaisedButton(
-                  child: Text('Add', style: TextStyle(color: Colors.white)),
-                  onPressed: () => _addCountry(countriesController.text),
-                ),
+                    child: Text('Add', style: TextStyle(color: Colors.white)),
+                    onPressed: () => _addCountry(countriesController.text),
+                  ),
                 )
               ],
             ),
@@ -253,15 +291,15 @@ class _FruitFormState extends State<FruitForm> {
               children: _countries
                   .map(
                     (ingredient) => Card(
-                      color: Colors.black54,
-                      child: Center(
-                        child: Text(
-                          ingredient,
-                          style: TextStyle(color: Colors.white, fontSize: 14),
-                        ),
-                      ),
+                  color: Colors.black54,
+                  child: Center(
+                    child: Text(
+                      ingredient,
+                      style: TextStyle(color: Colors.white, fontSize: 14),
                     ),
-                  )
+                  ),
+                ),
+              )
                   .toList(),
             )
           ]),

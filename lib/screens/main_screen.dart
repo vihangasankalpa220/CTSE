@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 
 import 'favorite_screen.dart';
 import 'home.dart';
-import 'notifications.dart';
+
 
 
 
@@ -33,23 +33,7 @@ class _MainScreenState extends State<MainScreen> with NavigationStates {
             Constants.appName,
           ),
           elevation: 0.0,
-          actions: <Widget>[           
-             IconButton(
-              icon: IconBadge(
-                icon: Icons.notifications,
-                size: 25.0,
-              ),
-              onPressed: (){
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (BuildContext context){
-                      return Notifications();
-                    },
-                  ),
-                );
-              },
-              tooltip: "Notifications",
-            ),
+          actions: <Widget>[
           ],
         ),
 

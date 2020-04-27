@@ -157,24 +157,22 @@ _uploadFruit(Fruit fruit, bool isUpdating, Function fruitUploaded, {String image
 
 uploadFavouriteFruitAndImage(Fruit fruit, bool isUpdating, File localFile, Function fruitUploaded) async {
   if (localFile != null) {
- //   print("uploading image");
+   print("uploading image");
 
-//    var fileExtension = path.extension(localFile.path);
- //   print(fileExtension);
+   var fileExtension = path.extension(localFile.path);
+    print(fileExtension);
 
-  //  var uuid = Uuid().v4();
+    var uuid = Uuid().v4();
+    final StorageReference firebaseStorageRef =
+    FirebaseStorage.instance.ref().child('ffruits/images/$uuid$fileExtension');
 
- //   final StorageReference firebaseStorageRef =
- //   FirebaseStorage.instance.ref().child('ffruits/images/$uuid$fileExtension');
+   await firebaseStorageRef.putFile(localFile).onComplete.catchError((onError) {
+      print(onError);
+      return false;
+   });
 
- //   await firebaseStorageRef.putFile(localFile).onComplete.catchError((onError) {
- //     print(onError);
-  //    return false;
- //   });
-
-  //  String url = await firebaseStorageRef.getDownloadURL();
-  //  print("download url: $url");
-  //  _uploadFavouriteFruit(fruit, isUpdating, fruitUploaded, imageUrl: url);
+    String url = await firebaseStorageRef.getDownloadURL();
+    print("download url: $url");_uploadFavouriteFruit(fruit, isUpdating, fruitUploaded, imageUrl: url);
     print('...skipping image upload');
     _uploadFavouriteFruit(fruit, isUpdating, fruitUploaded);
   } else {
@@ -237,7 +235,7 @@ deleteFruit(Fruit fruit, Function fruitDeleted) async {
 }
 
 deleteFavouriteFruit(Fruit fruit, Function fruitDeleted) async {
-  if (fruit.image != null) {
+ if (fruit.image != null) {
     StorageReference storageReference =
     await FirebaseStorage.instance.getReferenceFromUrl(fruit.image);
 

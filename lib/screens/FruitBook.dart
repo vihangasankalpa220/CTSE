@@ -37,7 +37,7 @@ class _FruitBookState extends State<FruitBook> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          authNotifier.user != null ? authNotifier.user.displayName : "Fruit Book",
+          authNotifier.user != null ? authNotifier.user.displayName + "'s Fruit Collection" : "Favourite Fruit Book",
         ),
         actions: <Widget>[
           // action button

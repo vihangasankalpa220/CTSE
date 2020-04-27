@@ -1,12 +1,14 @@
 import 'package:finalproject/api/fruit_api.dart';
 import 'package:finalproject/notifier/auth_notifier.dart';
 import 'package:finalproject/notifier/fruit_notifier.dart';
+import 'package:finalproject/screens/detail.dart';
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 
 import 'FavouriteDetails.dart';
 import 'details.dart';
+import 'login.dart';
 import 'main_screen.dart';
 
 
@@ -52,10 +54,20 @@ class _FavouriteFruitBookState extends State<FavoriteScreen> {
         actions: <Widget>[
           // action button
           FlatButton(
-            onPressed: () => signout(authNotifier),
+            onPressed: (){
+              //  => signout(authNotifier),
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (BuildContext context){
+                    authNotifier.setUser(null);
+                    return Login();
+                  },
+                ),
+              );
+            },
             child: Text(
               "Logout",
-              style: TextStyle(fontSize: 20, color: Colors.blue),
+              style: TextStyle(fontSize: 22, color: Colors.lightBlue),
             ),
           ),
         ],

@@ -5,7 +5,7 @@ import 'package:finalproject/widgets/grid_product.dart';
 import 'package:finalproject/widgets/home_category.dart';
 import 'package:flutter/material.dart';
 
-import 'notifications.dart';
+
 
 
 class CategoriesScreen extends StatefulWidget {
@@ -33,21 +33,6 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
         ),
         elevation: 0.0,
         actions: <Widget>[
-          IconButton(
-            icon: IconBadge(
-              icon: Icons.notifications,
-              size: 22.0,
-            ),
-            onPressed: (){
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (BuildContext context){
-                    return Notifications();
-                  },
-                ),
-              );
-            },
-          ),
         ],
       ),
 

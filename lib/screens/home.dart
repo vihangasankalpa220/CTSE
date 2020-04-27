@@ -11,6 +11,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:provider/provider.dart';
 
 import 'FruitBook.dart';
+import 'login.dart';
 
 
 
@@ -97,7 +98,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home>{
               children: <Widget>[
                 Text('Hi',
                   style: TextStyle(
-                    fontSize: 45,
+                    fontSize: 22,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -105,17 +106,27 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home>{
                 Text(
                   authNotifier.user != null ?  authNotifier.user.displayName : "Fruity!",
                   style: TextStyle(
-                    fontSize: 45,
+                    fontSize: 22,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
                 SizedBox(width: 10.0),
 
                 FlatButton(
-                  onPressed: () => signout(authNotifier),
+                  onPressed: (){
+                    //
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (BuildContext context){
+                          signout(authNotifier);
+                          return Login();
+                        },
+                      ),
+                    );
+                  },
                   child: Text(
                     "Logout",
-                    style: TextStyle(fontSize: 20, color: Colors.lightBlue),
+                    style: TextStyle(fontSize: 22, color: Colors.lightBlue),
                   ),
                 ),
               ],

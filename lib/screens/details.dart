@@ -1,7 +1,7 @@
 import 'package:finalproject/widgets/badge.dart';
 import 'package:flutter/material.dart';
 
-import 'notifications.dart';
+
 
 
 class ProductDetails extends StatefulWidget {
@@ -25,21 +25,6 @@ class _ProductDetailsState extends State<ProductDetails> {
         centerTitle: true,
         elevation: 0.0,
         actions: <Widget>[
-          IconButton(
-            icon: IconBadge(
-              icon: Icons.notifications,
-              size: 22.0,
-            ),
-            onPressed: (){
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (BuildContext context){
-                    return Notifications();
-                  },
-                ),
-              );
-            },
-          ),
         ],
       ),
 

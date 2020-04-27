@@ -3,7 +3,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:finalproject/screens/favorite_screen.dart';
 import 'package:finalproject/screens/home.dart';
-import 'package:finalproject/screens/notifications.dart';
 
 
 import 'sidebarinvoker.dart';
@@ -27,9 +26,6 @@ class NavigationBloc extends Bloc<NavigationEvents, NavigationStates> {
     switch (event) {
       case NavigationEvents.MyAccountClickedEvent:
        Home();
-        break;
-      case NavigationEvents.MyAccountClickedEvent:
-         Notifications();
         break;
       case NavigationEvents.MyOrdersClickedEvent:
          FavoriteScreen();
