@@ -118,10 +118,10 @@ class _LoginPageDisplayUIState extends State<LoginPageDisplayUI> {
           return 'Password must be betweem 5 and 20 characters';
         }
 
-   //     return null;
+        return null;
       },
       onSaved: (String value) {
-        _user.password = value;
+       _user.password = value;
       },
     );
   }
