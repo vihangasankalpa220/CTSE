@@ -1,27 +1,25 @@
 import 'dart:io';
-
 import 'package:finalproject/LearnAFruit_Api/Fruit_Api_Handler.dart';
 import 'package:finalproject/CrudControllers/authentication_Controller.dart';
-import 'package:finalproject/CrudControllers/Fruit_Controller.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-
-
 import 'package:provider/provider.dart';
-
 import 'FruitBook.dart';
 import 'LoginPageDisplay.dart';
+/*
+Author      : W.G.M.V.S Wijesundara  IT17035118
+description : Creating the main screen ui
+ */
 
 
-
+//creating the class to surf as the Home Page for to go Fruit List View  and manage the state of the page
 class HomeScreenUI extends StatefulWidget {
   @override
   _HomeScreenUIState createState() => _HomeScreenUIState();
 }
-
+//creating the ui screen for Home Screen View
 class _HomeScreenUIState extends State<HomeScreenUI> with AutomaticKeepAliveClientMixin<HomeScreenUI>{
-
+//handle the carousel slider in the top of the ui using image list to slide
   List<T> map<T>(List list, Function handler) {
     List<T> result = [];
     for (var i = 0; i < list.length; i++) {
@@ -31,47 +29,21 @@ class _HomeScreenUIState extends State<HomeScreenUI> with AutomaticKeepAliveClie
     return result;
   }
 
-  int _current = 0;
-  
+  //loading the slider image into the list to show in the slider panel
   List imageList = [
     'assets/intro1.png',
     'assets/intro2.png',
     'assets/intro3.png'
   ];
-
+//declare the private image  file to load the fruit open list button image
   File _image;
-  String _uploadedFileURL;
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
 
-    Future openCamera() async{
-      var image = await ImagePicker.pickImage(source: ImageSource.camera);
-
-      setState(() {
-        _image = image;
-        print('Image Path $_image');
-      });
-    }
-
-    Future getImage() async{
-      var image = await ImagePicker.pickImage(source: ImageSource.gallery);
-
-      setState(() {
-        _image = image;
-        print('Image Path $_image');
-      });
-    }
-
-
-
     AuthenticationController authNotifier = Provider.of<AuthenticationController>(context);
-    FruitController fruitNotifier = Provider.of<FruitController>(context);
 
-    Future<void> _refreshList() async {
-      getFruits(fruitNotifier);
-    }
 
     return Scaffold(
 
@@ -88,7 +60,7 @@ class _HomeScreenUIState extends State<HomeScreenUI> with AutomaticKeepAliveClie
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-              //  SizedBox(width: 10.0),
+
                 Text(
                   authNotifier.user != null ?  authNotifier.user.displayName : "Fruity!",
                   style: TextStyle(
@@ -136,12 +108,9 @@ class _HomeScreenUIState extends State<HomeScreenUI> with AutomaticKeepAliveClie
                 );
               }).toList(),
               autoPlay: true,
-//                enlargeCenterPage: true,
               viewportFraction: 1.0,
-//              aspectRatio: 2.0,
               onPageChanged: (index) {
                 setState(() {
-                  _current = index;
                 });
               },
             ),

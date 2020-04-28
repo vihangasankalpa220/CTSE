@@ -4,20 +4,24 @@ import 'package:finalproject/LearnAFruit_widgets/SideBarMain.dart';
 import 'package:finalproject/LearnAFruit_widgets/sidecomponents.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'favorite_screen.dart';
 import 'MainPageDisplay.dart';
+/*
+Author      : W.G.M.V.S Wijesundara  IT17035118
+description : Creating the page navigation handler
+ */
 
 
-
-
+//creating the ui screen to load all footer bar and page navigation handler in main screen view and handle the state
 class UICollectionHandler extends StatefulWidget {
   @override
   _UICollectionHandlerState createState() => _UICollectionHandlerState();
 }
-
-class _UICollectionHandlerState extends State<UICollectionHandler> with NavigationStates {
+//creating the ui screen to load all footer bar and page navigation handler in main screen view
+class _UICollectionHandlerState extends State<UICollectionHandler> with PageState {
+  //creating private page controller to route for relevant page
   PageController _pageController;
+  //creating private pages count
   int _page = 0;
 
   @override
@@ -116,23 +120,23 @@ class _UICollectionHandlerState extends State<UICollectionHandler> with Navigati
       ),
     );
   }
-
+  //handle the relevant page routing when tap on the relevant icon with int page number
   void navigationTapped(int page) {
     _pageController.jumpToPage(page);
   }
-
+ //set the initial state as the page controller state to show relevant page at once
   @override
   void initState() {
     super.initState();
     _pageController = PageController();
   }
-
+ //close the page after disposing
   @override
   void dispose() {
     super.dispose();
     _pageController.dispose();
   }
-
+  //set the page value to the state when tap on the icon in below footer
   void onPageChanged(int page) {
     setState(() {
       this._page = page;

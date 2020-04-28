@@ -3,7 +3,6 @@ import 'package:finalproject/LearnAFruit_Api/Fruit_Api_Handler.dart';
 import 'package:finalproject/Crudmodel/FruitCrudModel.dart';
 import 'package:finalproject/CrudControllers/Fruit_Controller.dart';
 import 'package:flutter/material.dart';
-
 import 'package:provider/provider.dart';
 import 'dart:io';
 

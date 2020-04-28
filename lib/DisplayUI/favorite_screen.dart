@@ -1,13 +1,9 @@
 import 'package:finalproject/LearnAFruit_Api/Fruit_Api_Handler.dart';
 import 'package:finalproject/CrudControllers/authentication_Controller.dart';
 import 'package:finalproject/CrudControllers/Fruit_Controller.dart';
-import 'package:finalproject/DisplayUI/detail.dart';
 import 'package:flutter/material.dart';
-
 import 'package:provider/provider.dart';
-
 import 'FavouriteDetails.dart';
-import 'details.dart';
 import 'LoginPageDisplay.dart';
 import 'UICollectionHandler.dart';
 
@@ -142,15 +138,6 @@ class _FavouriteFruitBookState extends State<FavoriteScreen> {
 
                 ],
               ),
-              onTap: (){
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (BuildContext context){
-                      return ProductDetails();
-                    },
-                  ),
-                );
-              },
             );
 
 

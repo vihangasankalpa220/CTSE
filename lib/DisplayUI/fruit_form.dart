@@ -1,37 +1,47 @@
 import 'dart:io';
-
-
 import 'package:finalproject/LearnAFruit_Api/Fruit_Api_Handler.dart';
 import 'package:finalproject/Crudmodel/FruitCrudModel.dart';
 import 'package:finalproject/CrudControllers/Fruit_Controller.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-
+/*
+Author      : W.G.M.V.S Wijesundara  IT17035118
+description : Creating the input screen for fruit crud
+ */
+//creating the class to input fruit details for adding the details of the fruit
 class FruitForm extends StatefulWidget {
+  //checking whether needs to update or not
   final bool isUpdating;
-
+  //loading the details to the constructor
   FruitForm({@required this.isUpdating});
-
+  //handle the fruit form state
   @override
   _FruitFormState createState() => _FruitFormState();
 }
-
+//creating the class to input fruit details for adding the details of the fruit
 class _FruitFormState extends State<FruitForm> {
+  //declaring the global form key to maintain form state
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  //declaring the global scaffold key to maintain scaffold state
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
+  //creating the list handler to store countries
   List _countries = [];
+  //creating the current fruit details object
   FruitCrudModel _currentFruit;
+  //creating the image url for the fruit
   String _imageUrl;
+  //creating the image file to store in cloud store bucket
   File _imageFile;
+  //creating the text field controller to country adder
   TextEditingController countriesController = new TextEditingController();
 
+  //maintaining the state of the fruit controller
   @override
   void initState() {
     super.initState();
     FruitController fruitNotifier = Provider.of<FruitController>(context, listen: false);
-
+    //checking if current fruit object is null then load the current details
     if (fruitNotifier.currentFruit != null) {
       _currentFruit = fruitNotifier.currentFruit;
     } else {
@@ -41,13 +51,13 @@ class _FruitFormState extends State<FruitForm> {
     _countries.addAll(_currentFruit.countries);
     _imageUrl = _currentFruit.image;
   }
-
+  //check if the the file and image url is null then show in the placeholder as image placeholder otherwise print in console as showing image from local file
   _showImage() {
     if (_imageFile == null && _imageUrl == null) {
       return Text("image placeholder");
     } else if (_imageFile != null) {
       print('showing image from local file');
-
+      //designing the ui level
       return Stack(
         alignment: AlignmentDirectional.bottomCenter,
         children: <Widget>[
@@ -92,7 +102,7 @@ class _FruitFormState extends State<FruitForm> {
       );
     }
   }
-
+  //getting the image file from image gallery to load image in the placeholder
   _getLocalImage() async {
     File imageFile =
         await ImagePicker.pickImage(source: ImageSource.gallery, imageQuality: 100, maxWidth: 400);
@@ -103,7 +113,7 @@ class _FruitFormState extends State<FruitForm> {
       });
     }
   }
-
+  //getting the image file from mobile camera to load image in the placeholder
   _openCamera() async {
     File imageFile =
     await ImagePicker.pickImage(source: ImageSource.camera, imageQuality: 100, maxWidth: 400);
@@ -115,7 +125,7 @@ class _FruitFormState extends State<FruitForm> {
     }
   }
 
-
+  //handle the name field with validation using text form controller
   Widget _buildNameField() {
     return TextFormField(
       decoration: InputDecoration(labelText: 'Fruit Name'),
@@ -138,7 +148,7 @@ class _FruitFormState extends State<FruitForm> {
       },
     );
   }
-
+  //handle the fruit family field with validation using text form controller
   Widget _buildCategoryField() {
     return TextFormField(
       decoration: InputDecoration(labelText: 'Fruit Category'),
@@ -161,7 +171,7 @@ class _FruitFormState extends State<FruitForm> {
       },
     );
   }
-
+  //handle the available country field with validation using text form controller
   _buildCountryField() {
     return SizedBox(
       width: 200,
@@ -173,13 +183,13 @@ class _FruitFormState extends State<FruitForm> {
       ),
     );
   }
-
+  //sending the uploaded fruit details to add to the cloud store
   _onFruitUploaded(FruitCrudModel fruit) {
     FruitController fruitNotifier = Provider.of<FruitController>(context, listen: false);
     fruitNotifier.addFruit(fruit);
     Navigator.pop(context);
   }
-
+  //controlling the text form state whether empty or add the text if it is not empty
   _addCountry(String text) {
     if (text.isNotEmpty) {
       setState(() {
@@ -188,7 +198,7 @@ class _FruitFormState extends State<FruitForm> {
       countriesController.clear();
     }
   }
-
+   //save the current state of the form text forms
   _saveFruit() {
     print('saveFruit Called');
     if (!_formKey.currentState.validate()) {

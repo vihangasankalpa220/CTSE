@@ -1,39 +1,27 @@
 
-
 import 'package:bloc/bloc.dart';
-import 'package:finalproject/DisplayUI/favorite_screen.dart';
-import 'package:finalproject/DisplayUI/MainPageDisplay.dart';
-
-
 import 'sidebarinvoker.dart';
+/*
+Author      : W.G.M.V.S Wijesundara  IT17035118
+description : Creating the About Us Page
+ */
+
+//Creating the Abstract class to load About Us
 
 
-enum NavigationEvents {
-  HomePageClickedEvent,
-  MyAccountClickedEvent,
-  MyOrdersClickedEvent,
-}
 
-abstract class NavigationStates {}
+abstract class PageState {}
 
-class NavigationBloc extends Bloc<NavigationEvents, NavigationStates> {
+class Paginization extends Bloc<NavigationEvents, PageState> {
 
   @override
-  NavigationStates get initialState => MyAccountsPage();
+  PageState get initialState => AboutUs();
 
-
-  Stream<NavigationStates> mapEventToState(NavigationEvents event) async* {
-    switch (event) {
-      case NavigationEvents.MyAccountClickedEvent:
-       HomeScreenUI();
-        break;
-      case NavigationEvents.MyOrdersClickedEvent:
-         FavoriteScreen();
-        break;
-      case NavigationEvents.HomePageClickedEvent:
-        break;
-    }
+  @override
+  Stream<PageState> mapEventToState(event) {
+    // TODO: implement mapEventToState
   }
+}
 
-
+class NavigationEvents {
 }

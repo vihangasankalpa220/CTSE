@@ -5,30 +5,33 @@ import 'package:finalproject/CrudControllers/Fruit_Controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'detail.dart';
-import 'details.dart';
 import 'fruit_form.dart';
-
-
+/*
+Author      : W.G.M.V.S Wijesundara  IT17035118
+description : Creating the main screen to direct to the fruit list
+ */
+//creating the class to surf as the main screen for to go the fruit list  and manage the state of the page
 class FruitBook extends StatefulWidget {
   @override
   _FruitBookState createState() => _FruitBookState();
 }
 
-
+//creating the class to surf as the main screen for to go the fruit list
 class _FruitBookState extends State<FruitBook> {
-
+  //maintaining the state of the fruit controller to get fruits list
   @override
   void initState() {
     FruitController fruitNotifier = Provider.of<FruitController>(context, listen: false);
     getFruits(fruitNotifier);
     super.initState();
   }
-
+//calling the authentication class to get the display name
+//calling the fruit controller class to get the list of fruits to display
   @override
   Widget build(BuildContext context) {
     AuthenticationController authNotifier = Provider.of<AuthenticationController>(context);
     FruitController fruitNotifier = Provider.of<FruitController>(context);
-
+    //showing the list of fruits in list  view builder
     Future<void> _refreshList() async {
       getFruits(fruitNotifier);
     }
@@ -37,6 +40,7 @@ class _FruitBookState extends State<FruitBook> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
+          //if authentic user state isn't null then show the display name as email display name in the appbar
           authNotifier.user != null ? authNotifier.user.displayName + "'s Fruit Collection" : "Favourite Fruit Book",
         ),
         actions: <Widget>[
@@ -73,8 +77,6 @@ class _FruitBookState extends State<FruitBook> {
                   return FruitDetail();
                 }));
               },
-
-
             );
 
           },
@@ -109,26 +111,9 @@ class _FruitBookState extends State<FruitBook> {
                         ),
                       ),
                     ],
-
-
                   ),
-
-
-
-
-
-
                 ],
               ),
-              onTap: (){
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (BuildContext context){
-                      return ProductDetails();
-                    },
-                  ),
-                );
-              },
             );
 
 
@@ -151,6 +136,7 @@ class _FruitBookState extends State<FruitBook> {
             }),
           );
         },
+        //invoke to create new fruits
         child: Icon(Icons.add),
         foregroundColor: Colors.white,
       ),

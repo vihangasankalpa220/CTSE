@@ -1,12 +1,16 @@
 import 'dart:async';
-
 import 'package:finalproject/CrudControllers/authentication_Controller.dart';
 import 'package:finalproject/LearnAFruitproviders/LearnAFruit_provider.dart';
 import 'package:finalproject/LearnAFruitUtilities/constColourAttributer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
+/*
+Author      : W.G.M.V.S Wijesundara  IT17035118
+description : Creating the About Us Page
+ */
 
+//Creating the UI Level to Display In About Us
 
 class SideBar extends StatefulWidget {
   @override
@@ -112,7 +116,7 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin<S
                           radius: 40,
                         ),
                       ),
-
+                    //showing the dark mode white mode changer
                       ListTile(
                         title: Text(
                           "Dark Mode",
@@ -151,7 +155,7 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin<S
                     onIconPressed();
                   },
                   child: ClipPath(
-                    clipper: CustomMenuClipper(),
+                    clipper: MenuWidget(),
                     child: Container(
                       width: 35,
                       height: 110,
@@ -175,7 +179,7 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin<S
   }
 }
 
-class CustomMenuClipper extends CustomClipper<Path> {
+class MenuWidget extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     Paint paint = Paint();

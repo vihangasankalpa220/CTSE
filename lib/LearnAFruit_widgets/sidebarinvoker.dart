@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-
 import 'SideBarMain.dart';
+/*
+Author      : W.G.M.V.S Wijesundara  IT17035118
+description : Creating the About Us Page
+ */
 
-
-
-class MyAccountsPage extends StatelessWidget with NavigationStates {
+//Creating the About Us Page
+class AboutUs extends StatelessWidget with PageState {
   @override
   Widget build(BuildContext context) {
     return Center(
