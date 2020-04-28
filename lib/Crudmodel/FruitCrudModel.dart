@@ -2,6 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 /*
 Author      : W.G.M.V.S Wijesundara  IT17035118
 description : Creating the fruit crud model to perform crud operations
+reference1:  https://github.com/JulianCurrie/CwC_Flutter
+reference2: https://www.youtube.com/watch?v=bjMw89L61FI
+reference3: https://github.com/TechieBlossom/sidebar_animation_flutter
+reference4: https://apkpure.com/flutter-mobile-restaurantui-kit/com.jideguru.restaurant_ui_kit
  */
 
 //creating the class to create the attributes for the fruit crud model to handle the fruit details

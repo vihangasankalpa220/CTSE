@@ -223,7 +223,8 @@ class _ProfileUIState extends State<ProfileUI> {
               ],
             ),
             SizedBox(height: 16),
-
+      //    reference4: https://apkpure.com/flutter-mobile-restaurantui-kit/com.jideguru.restaurant_ui_kit
+            //this method switches the theme type to dark mode to white mode vise versa using app provider class (main class of dark mode)
             ListTile(
               title: Text(
                 "Dark Mode",

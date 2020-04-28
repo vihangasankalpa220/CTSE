@@ -9,6 +9,10 @@ import 'fruit_form.dart';
 /*
 Author      : W.G.M.V.S Wijesundara  IT17035118
 description : Creating the main screen to direct to the fruit list
+reference1:  https://github.com/JulianCurrie/CwC_Flutter
+reference2: https://www.youtube.com/watch?v=bjMw89L61FI
+reference3: https://github.com/TechieBlossom/sidebar_animation_flutter
+reference4: https://apkpure.com/flutter-mobile-restaurantui-kit/com.jideguru.restaurant_ui_kit
  */
 //creating the class to surf as the main screen for to go the fruit list  and manage the state of the page
 class FruitBook extends StatefulWidget {

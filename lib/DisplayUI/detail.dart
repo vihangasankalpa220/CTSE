@@ -9,6 +9,10 @@ import 'fruit_form.dart';
 /*
 Author      : W.G.M.V.S Wijesundara  IT17035118
 description : Creating the fruit detail class show details of the each fruits
+reference1:  https://github.com/JulianCurrie/CwC_Flutter
+reference2: https://www.youtube.com/watch?v=bjMw89L61FI
+reference3: https://github.com/TechieBlossom/sidebar_animation_flutter
+reference4: https://apkpure.com/flutter-mobile-restaurantui-kit/com.jideguru.restaurant_ui_kit
  */
 
 //creating the class to display the fruit details from each fruits with update delete adding favorite list actions in fruit main screen

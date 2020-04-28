@@ -8,7 +8,11 @@ import 'CrudControllers/authentication_Controller.dart';
 import 'CrudControllers/Fruit_Controller.dart';
 /*
 Author      : W.G.M.V.S Wijesundara  IT17035118
-description : Creating the main class to run the application
+description : Creating the About Us Page
+reference1:  https://github.com/JulianCurrie/CwC_Flutter
+reference2: https://www.youtube.com/watch?v=bjMw89L61FI
+reference3: https://github.com/TechieBlossom/sidebar_animation_flutter
+reference4: https://apkpure.com/flutter-mobile-restaurantui-kit/com.jideguru.restaurant_ui_kit
  */
 //creating the main class to run the application
 void main() {

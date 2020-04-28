@@ -5,7 +5,11 @@ import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 /*
 Author      : W.G.M.V.S Wijesundara  IT17035118
-description : Creating the dark mode white mode changing class
+description : Creating the About Us Page
+reference1:  https://github.com/JulianCurrie/CwC_Flutter
+reference2: https://www.youtube.com/watch?v=bjMw89L61FI
+reference3: https://github.com/TechieBlossom/sidebar_animation_flutter
+reference4: https://apkpure.com/flutter-mobile-restaurantui-kit/com.jideguru.restaurant_ui_kit
  */
 
 //creating the class to handle the dark mode and white mode provider mode
@@ -14,7 +18,7 @@ class LearnAFruitProvider extends ChangeNotifier{
   LearnAFruitProvider(){
     checkTheme();
   }
-
+  // reference: https://apkpure.com/flutter-mobile-restaurantui-kit/com.jideguru.restaurant_ui_kit
   //declare theme variable assign its default to light theme
   ThemeData theme = Constants.lightTheme;
   //declare unique key
@@ -33,6 +37,7 @@ class LearnAFruitProvider extends ChangeNotifier{
     notifyListeners();
   }
   //setting the theme to dark mode to white mode vise versa
+  // reference: https://apkpure.com/flutter-mobile-restaurantui-kit/com.jideguru.restaurant_ui_kit
   void setTheme(value, c) {
     theme = value;
     SharedPreferences.getInstance().then((prefs){
@@ -51,6 +56,7 @@ class LearnAFruitProvider extends ChangeNotifier{
     return theme;
   }
   //checking previous state of the theme and return
+ // reference: https://apkpure.com/flutter-mobile-restaurantui-kit/com.jideguru.restaurant_ui_kit
   Future<ThemeData> checkTheme() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     ThemeData t;
